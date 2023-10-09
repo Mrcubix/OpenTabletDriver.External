@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <NoWarn>NETSDK1138; VSTHRD200</NoWarn>
+    <RootNamespace>OpenTabletDriver.External.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- OpenTabletDriver -->
+    <ProjectReference Include="../.modules/OpenTabletDriver/OpenTabletDriver.Desktop/OpenTabletDriver.Desktop.csproj" />
+    <!-- Newtonsoft.Json -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>

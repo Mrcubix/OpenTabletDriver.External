@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
+        MinWidth="350" MinHeight="250" Width="350" Height="250" 
+        x:Class="OpenTabletDriver.External.Avalonia.Dialogs.AdvancedBindingEditorDialog"
+        x:DataType="vm:AdvancedBindingEditorDialogViewModel"
+        Background="#171C2C"
+        Icon="/Assets/logo-V4.ico"
+        Title="Advanced Binding Editor"
+        WindowStartupLocation="CenterOwner"
+        x:CompileBindings="True">
+        
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">
+        <TextBlock Text="Type" Margin="0, 8" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+
+        <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" Name="TypesComboBox" 
+                  Margin="0, 0, 0, 16" Grid.Row="1" Grid.ColumnSpan="2"
+                  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+
+        <TextBlock Text="Property" Margin="0, 8" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+
+        <ComboBox ItemsSource="{Binding ValidProperties}" SelectedItem="{Binding SelectedProperty}" Name="PropertiesComboBox"
+                  Grid.Row="3"  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+
+        <Button Grid.Row="5" Grid.Column="0"
+                Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Clear}" HorizontalAlignment="Stretch" >
+            <TextBlock Text="Clear" TextAlignment="Center" />
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="1"
+                Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Apply}" HorizontalAlignment="Stretch" >
+            <TextBlock Text="Apply" TextAlignment="Center" />
+        </Button>
+
+    </Grid>
+
+</Window>

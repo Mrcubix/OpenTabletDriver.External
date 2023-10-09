@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
+        MinWidth="350" MinHeight="250" Width="350" Height="250" 
+        x:Class="OpenTabletDriver.External.Avalonia.Dialogs.BindingEditorDialog"
+        x:DataType="vm:BindingEditorDialogViewModel"
+        Background="#171C2C"
+        Icon="/Assets/logo-V4.ico"
+        Title="Binding Editor"
+        WindowStartupLocation="CenterOwner"
+        x:CompileBindings="true">
+        
+        
+    <Grid RowDefinitions="*, Auto" >
+        <Border Margin="5" Grid.Row="0" Background="#1E2738" BorderBrush="#FFFFFF" BorderThickness="1" CornerRadius="5">
+            <TextBlock Text="Press a key or mouse button" TextAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Button Margin="5" Grid.Row="1" Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Clear}" HorizontalAlignment="Stretch" >
+            <TextBlock Text="Clear" TextAlignment="Center" />
+        </Button>
+    </Grid>
+
+</Window>
