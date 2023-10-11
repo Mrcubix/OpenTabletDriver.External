@@ -1,19 +1,20 @@
-namespace OpenTabletDriver.External.Common.Serializables;
-
-public class SerializablePluginSettings
+namespace OpenTabletDriver.External.Common.Serializables
 {
-    public SerializablePluginSettings()
+    public class SerializablePluginSettings
     {
-        Value = null!;
-        Identifier = -1;
-    }
+        public SerializablePluginSettings()
+        {
+            Value = null!;
+            Identifier = -1;
+        }
 
-    public SerializablePluginSettings(string value, int identifier)
-    {
-        Value = value;
-        Identifier = identifier;
-    }
+        public SerializablePluginSettings(string value, int identifier)
+        {
+            Value = value;
+            Identifier = identifier;
+        }
 
-    public int Identifier { get; set; }
-    public string? Value { get; set; }
+        public int Identifier { get; set; }
+        public string? Value { get; set; }
+    }
 }
