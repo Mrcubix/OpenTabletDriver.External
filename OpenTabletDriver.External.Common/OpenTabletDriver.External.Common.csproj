@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- OpenTabletDriver -->
-    <ProjectReference Include="../.modules/OpenTabletDriver/OpenTabletDriver.Desktop/OpenTabletDriver.Desktop.csproj" />
+    <!-- OpenTabletDriver (Private Assets) -->
+    <ProjectReference Include="../.modules/OpenTabletDriver/OpenTabletDriver.Desktop/OpenTabletDriver.Desktop.csproj" PrivateAssets="all" />
     <!-- Newtonsoft.Json -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
