@@ -1,24 +1,19 @@
 using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using OpenTabletDriver.External.Common.Serializables;
-using ReactiveUI;
 
 namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
-public class BindingEditorDialogViewModel : ViewModelBase
+public partial class BindingEditorDialogViewModel : ViewModelBase
 {
+    [ObservableProperty]
     private SerializablePluginSettings? _property = null!;
 
     public event EventHandler CloseRequested = null!;
 
-    public SerializablePluginSettings? Property
-    {
-        get => _property;
-        set => this.RaiseAndSetIfChanged(ref _property, value);
-    }
-
     public void Clear()
     {
-        _property = null!;
+        Property = null!;
 
         CloseRequested?.Invoke(this, null!);
     }

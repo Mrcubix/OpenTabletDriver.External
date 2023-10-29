@@ -15,11 +15,11 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Description}" FontSize="16" VerticalAlignment="Center" Grid.Column="0" />
-        <Button Command="{Binding OnShowBindingEditorDialogEvent}" 
+        <Button Command="{Binding ShowBindingEditorDialog}" 
                 HorizontalAlignment="Stretch" Margin="10,0,0,0" Grid.Column="1" >
             <TextBlock Text="{Binding Content}" FontSize="16" TextAlignment="Center" />
         </Button>
-        <Button Content="..." Command="{Binding OnShowAdvancedBindingEditorDialogEvent}" FontSize="16" Margin="10,0,0,0" Grid.Column="2" />
+        <Button Content="..." Command="{Binding ShowAdvancedBindingEditorDialog}" FontSize="16" Margin="10,0,0,0" Grid.Column="2" />
     </Grid>
 
 </UserControl>

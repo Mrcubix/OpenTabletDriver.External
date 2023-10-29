@@ -1,13 +1,18 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using OpenTabletDriver.External.Common.Serializables;
-using ReactiveUI;
 
 namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
-public class BindingDisplayViewModel : ViewModelBase
+public partial class BindingDisplayViewModel : ViewModelBase
 {
+    [ObservableProperty]
     private string? _description;
+
+    [ObservableProperty]
     private string? _content;
+
+    [ObservableProperty]
     private SerializablePluginSettings? _pluginProperty;
 
     public BindingDisplayViewModel()
@@ -28,35 +33,17 @@ public class BindingDisplayViewModel : ViewModelBase
         Content = content;
         PluginProperty = pluginProperty;
     }
-
-    public string? Description
-    {
-        get => _description;
-        set => this.RaiseAndSetIfChanged(ref _description, value);
-    }
-
-    public string? Content
-    {
-        get => _content;
-        set => this.RaiseAndSetIfChanged(ref _content, value);
-    }
-
-    public SerializablePluginSettings? PluginProperty
-    {
-        get => _pluginProperty;
-        set => this.RaiseAndSetIfChanged(ref _pluginProperty, value);
-    }
     
-    public event EventHandler<BindingDisplayViewModel>? OnShowBindingEditorDialog;
-    public event EventHandler<BindingDisplayViewModel>? OnShowAdvancedBindingEditorDialog;
+    public event EventHandler<BindingDisplayViewModel>? ShowBindingEditorDialogRequested;
+    public event EventHandler<BindingDisplayViewModel>? ShowAdvancedBindingEditorDialogRequested;
 
-    public void OnShowBindingEditorDialogEvent()
+    public void ShowBindingEditorDialog()
     {
-        OnShowBindingEditorDialog?.Invoke(this, this);
+        ShowBindingEditorDialogRequested?.Invoke(this, this);
     }
 
-    public void OnShowAdvancedBindingEditorDialogEvent()
+    public void ShowAdvancedBindingEditorDialog()
     {
-        OnShowAdvancedBindingEditorDialog?.Invoke(this, this);
+        ShowAdvancedBindingEditorDialogRequested?.Invoke(this, this);
     }
 }

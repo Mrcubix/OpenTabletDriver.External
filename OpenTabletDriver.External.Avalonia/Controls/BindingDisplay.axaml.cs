@@ -20,8 +20,8 @@ public partial class BindingDisplay : UserControl
 
         if (DataContext is BindingDisplayViewModel vm)
         {
-            vm.OnShowBindingEditorDialog += ShowBindingEditorDialog;
-            vm.OnShowAdvancedBindingEditorDialog += ShowAdvancedBindingEditorDialog;
+            vm.ShowBindingEditorDialogRequested += ShowBindingEditorDialog;
+            vm.ShowAdvancedBindingEditorDialogRequested += ShowAdvancedBindingEditorDialog;
         }
     }
 

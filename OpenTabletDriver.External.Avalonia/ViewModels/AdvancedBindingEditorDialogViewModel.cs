@@ -1,15 +1,21 @@
 using System;
 using System.Collections.ObjectModel;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
-public class AdvancedBindingEditorDialogViewModel : BindingEditorDialogViewModel
+public partial class AdvancedBindingEditorDialogViewModel : BindingEditorDialogViewModel
 {
+    [ObservableProperty]
     private ObservableCollection<string> _types = null!;
+
+    [ObservableProperty]
     private string _selectedType = null!;
 
+    [ObservableProperty]
     private ObservableCollection<string> _validProperties = null!;
+
+    [ObservableProperty]
     private string _selectedProperty = null!;
 
     public AdvancedBindingEditorDialogViewModel()
@@ -22,30 +28,6 @@ public class AdvancedBindingEditorDialogViewModel : BindingEditorDialogViewModel
     {
         Types = types;
         ValidProperties = validProperties;
-    }
-
-    public ObservableCollection<string> Types
-    {
-        get => _types;
-        set => this.RaiseAndSetIfChanged(ref _types, value);
-    }
-
-    public string SelectedType
-    {
-        get => _selectedType;
-        set => this.RaiseAndSetIfChanged(ref _selectedType, value);
-    }
-
-    public ObservableCollection<string> ValidProperties
-    {
-        get => _validProperties;
-        set => this.RaiseAndSetIfChanged(ref _validProperties, value);
-    }
-
-    public string SelectedProperty
-    {
-        get => _selectedProperty;
-        set => this.RaiseAndSetIfChanged(ref _selectedProperty, value);
     }
 
     public event EventHandler ApplyRequested = null!;
