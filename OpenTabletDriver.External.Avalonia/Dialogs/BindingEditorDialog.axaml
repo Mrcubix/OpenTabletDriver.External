@@ -8,7 +8,6 @@
         x:Class="OpenTabletDriver.External.Avalonia.Dialogs.BindingEditorDialog"
         x:DataType="vm:BindingEditorDialogViewModel"
         Background="#171C2C"
-        Icon="/Assets/logo-V4.ico"
         Title="Binding Editor"
         WindowStartupLocation="CenterOwner"
         x:CompileBindings="true">
