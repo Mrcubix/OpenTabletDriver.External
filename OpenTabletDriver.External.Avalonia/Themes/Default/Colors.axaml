@@ -2,8 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
   <Color x:Key="BindingEditorDialogBorderColor">#FFFFFF</Color>
-  <Color x:Key="BindingEditorDialogBorderBackground">#1E2738</Color>
+  <Color x:Key="BindingEditorDialogBorderBackgroundColor">#1E2738</Color>
   <Color x:Key="BindingEditorDialogBodyColor">#171C2C</Color>
-  <Color x:Key="BindingEditorDialogForeground">#FFFFFF</Color>
+  <Color x:Key="BindingEditorDialogForegroundColor">#FFFFFF</Color>
+  <Color x:Key="BindingEditorButtonColor">#33FFFFFF</Color>
 
 </ResourceDictionary>

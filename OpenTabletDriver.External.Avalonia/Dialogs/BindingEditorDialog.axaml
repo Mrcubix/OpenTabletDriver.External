@@ -16,11 +16,11 @@
     </Window.Background>
         
     <Grid RowDefinitions="*, Auto" >
-        <Border Margin="5" Grid.Row="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" BorderBrush="{DynamicResource BindingEditorDialogBorderColorBrush}" 
+        <Border Margin="5" Grid.Row="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" BorderBrush="{DynamicResource BindingEditorDialogBorderBrush}" 
                 BorderThickness="1" CornerRadius="5">
             <TextBlock Text="Press a key or mouse button" TextAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <Button Margin="5" Grid.Row="1" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
+        <Button Margin="5" Grid.Row="1" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>

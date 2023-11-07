@@ -29,12 +29,12 @@
                   Grid.Row="3"  Grid.ColumnSpan="2"
                   VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
-        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
+        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>
 
-        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
+        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Apply}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Apply" TextAlignment="Center" />
         </Button>
