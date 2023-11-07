@@ -13,7 +13,7 @@
         x:CompileBindings="True">
 
     <Window.Background>
-        <DynamicResource ResourceKey="BindingEditorDialogBodyColorBrush" />
+        <DynamicResource ResourceKey="BindingEditorDialogBodyBrush" />
     </Window.Background>
         
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">
