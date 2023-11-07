@@ -5,6 +5,8 @@ using OpenTabletDriver.External.Avalonia.Views;
 
 namespace OpenTabletDriver.External.Avalonia.Controls;
 
+#nullable enable
+
 public partial class BindingDisplay : UserControl
 {
     // --------------------------------- Constructor --------------------------------- //

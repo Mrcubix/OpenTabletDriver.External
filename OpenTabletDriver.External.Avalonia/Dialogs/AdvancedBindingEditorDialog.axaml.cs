@@ -7,6 +7,8 @@ using OpenTabletDriver.External.Common.Serializables;
 
 namespace OpenTabletDriver.External.Avalonia.Dialogs;
 
+#nullable enable
+
 public partial class AdvancedBindingEditorDialog : Window
 {
     protected ObservableCollection<SerializablePlugin> _plugins = null!;

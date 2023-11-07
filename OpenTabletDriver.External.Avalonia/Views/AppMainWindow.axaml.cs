@@ -3,6 +3,8 @@ using OpenTabletDriver.External.Avalonia.ViewModels;
 
 namespace OpenTabletDriver.External.Avalonia.Views;
 
+#nullable enable
+
 public abstract partial class AppMainWindow : Window
 {
     public abstract void ShowBindingEditorDialog(object? sender, BindingDisplayViewModel e);

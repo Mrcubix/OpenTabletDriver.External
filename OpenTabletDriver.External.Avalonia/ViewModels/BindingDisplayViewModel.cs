@@ -4,6 +4,8 @@ using OpenTabletDriver.External.Common.Serializables;
 
 namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
+#nullable enable
+
 public partial class BindingDisplayViewModel : ViewModelBase
 {
     [ObservableProperty]
