@@ -11,6 +11,16 @@
         Title="Advanced Binding Editor"
         WindowStartupLocation="CenterOwner"
         x:CompileBindings="True">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="BorderBackground" Color="#1E2738" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#171C2C" />
+        <SolidColorBrush x:Key="Foreground" Color="#FFFFFF" />
+    </Window.Resources>
+
+    <Window.Background>
+        <DynamicResource ResourceKey="AccentBrush" />
+    </Window.Background>
         
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">
         <TextBlock Text="Type" Margin="0, 8" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" />
@@ -25,13 +35,13 @@
                   Grid.Row="3"  Grid.ColumnSpan="2"
                   VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
-        <Button Grid.Row="5" Grid.Column="0"
-                Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Clear}" HorizontalAlignment="Stretch" >
+        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BorderBackground}" Foreground="{DynamicResource BorderBrush}"
+                Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>
 
-        <Button Grid.Row="5" Grid.Column="1"
-                Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Apply}" HorizontalAlignment="Stretch" >
+        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BorderBackground}" Foreground="{DynamicResource BorderBrush}"
+                Command="{Binding Apply}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Apply" TextAlignment="Center" />
         </Button>
 

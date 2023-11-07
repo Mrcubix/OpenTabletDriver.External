@@ -7,17 +7,28 @@
         MinWidth="350" MinHeight="250" Width="350" Height="250" 
         x:Class="OpenTabletDriver.External.Avalonia.Dialogs.BindingEditorDialog"
         x:DataType="vm:BindingEditorDialogViewModel"
-        Background="#171C2C"
         Title="Binding Editor"
         WindowStartupLocation="CenterOwner"
         x:CompileBindings="true">
-        
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="BorderBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="BorderBackground" Color="#1E2738" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#171C2C" />
+        <SolidColorBrush x:Key="Foreground" Color="#FFFFFF" />
+    </Window.Resources>
+
+    <Window.Background>
+        <DynamicResource ResourceKey="AccentBrush" />
+    </Window.Background>
         
     <Grid RowDefinitions="*, Auto" >
-        <Border Margin="5" Grid.Row="0" Background="#1E2738" BorderBrush="#FFFFFF" BorderThickness="1" CornerRadius="5">
+        <Border Margin="5" Grid.Row="0" Background="{DynamicResource BorderBackground}" BorderBrush="{DynamicResource BorderBrush}" 
+                BorderThickness="1" CornerRadius="5">
             <TextBlock Text="Press a key or mouse button" TextAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <Button Margin="5" Grid.Row="1" Background="#1E2738" Foreground="#FFFFFF" Command="{Binding Clear}" HorizontalAlignment="Stretch" >
+        <Button Margin="5" Grid.Row="1" Background="{DynamicResource BorderBackground}" Foreground="{DynamicResource Foreground}"
+                Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>
     </Grid>
