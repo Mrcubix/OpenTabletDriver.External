@@ -12,14 +12,8 @@
         WindowStartupLocation="CenterOwner"
         x:CompileBindings="True">
 
-    <Window.Resources>
-        <SolidColorBrush x:Key="AdvancedBindingEditorDialogBorderBackgroundBrush" Color="#1E2738" />
-        <SolidColorBrush x:Key="AdvancedBindingEditorDialogBodyColorBrush" Color="#171C2C" />
-        <SolidColorBrush x:Key="AdvancedBindingEditorDialogForegroundBrush" Color="#FFFFFF" />
-    </Window.Resources>
-
     <Window.Background>
-        <DynamicResource ResourceKey="BodyColorBrush" />
+        <DynamicResource ResourceKey="BindingEditorDialogBodyColorBrush" />
     </Window.Background>
         
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">

@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <SolidColorBrush x:Key="BindingEditorDialogBorderColorBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="BindingEditorDialogBorderBackgroundBrush" Color="#1E2738" />
+  <SolidColorBrush x:Key="BindingEditorDialogBodyColorBrush" Color="#171C2C" />
+  <SolidColorBrush x:Key="BindingEditorDialogForegroundBrush" Color="#FFFFFF" />
+
+</ResourceDictionary>
