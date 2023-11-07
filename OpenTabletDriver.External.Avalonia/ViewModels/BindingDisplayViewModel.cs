@@ -33,7 +33,7 @@ public partial class BindingDisplayViewModel : ViewModelBase
         Content = content;
         PluginProperty = pluginProperty;
     }
-    
+
     public event EventHandler<BindingDisplayViewModel>? ShowBindingEditorDialogRequested;
     public event EventHandler<BindingDisplayViewModel>? ShowAdvancedBindingEditorDialogRequested;
 
