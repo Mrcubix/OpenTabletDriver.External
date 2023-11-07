@@ -13,9 +13,9 @@
         x:CompileBindings="True">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="BorderBackgroundBrush" Color="#1E2738" />
-        <SolidColorBrush x:Key="BodyColorBrush" Color="#171C2C" />
-        <SolidColorBrush x:Key="ForegroundBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="AdvancedBindingEditorDialogBorderBackgroundBrush" Color="#1E2738" />
+        <SolidColorBrush x:Key="AdvancedBindingEditorDialogBodyColorBrush" Color="#171C2C" />
+        <SolidColorBrush x:Key="AdvancedBindingEditorDialogForegroundBrush" Color="#FFFFFF" />
     </Window.Resources>
 
     <Window.Background>
@@ -35,12 +35,12 @@
                   Grid.Row="3"  Grid.ColumnSpan="2"
                   VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
-        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BorderBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}"
+        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>
 
-        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BorderBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}"
+        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Apply}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Apply" TextAlignment="Center" />
         </Button>

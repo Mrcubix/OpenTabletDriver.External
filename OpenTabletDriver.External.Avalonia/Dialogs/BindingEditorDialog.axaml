@@ -12,22 +12,22 @@
         x:CompileBindings="true">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="BorderColorBrush" Color="#FFFFFF" />
-        <SolidColorBrush x:Key="BorderBackgroundBrush" Color="#1E2738" />
-        <SolidColorBrush x:Key="BodyColorBrush" Color="#171C2C" />
-        <SolidColorBrush x:Key="ForegroundBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="BindingEditorDialogBorderColorBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="BindingEditorDialogBorderBackgroundBrush" Color="#1E2738" />
+        <SolidColorBrush x:Key="BindingEditorDialogBodyColorBrush" Color="#171C2C" />
+        <SolidColorBrush x:Key="BindingEditorDialogForegroundBrush" Color="#FFFFFF" />
     </Window.Resources>
 
     <Window.Background>
-        <DynamicResource ResourceKey="BodyColorBrush" />
+        <DynamicResource ResourceKey="BindingEditorDialogBodyColorBrush" />
     </Window.Background>
         
     <Grid RowDefinitions="*, Auto" >
-        <Border Margin="5" Grid.Row="0" Background="{DynamicResource BorderBackgroundBrush}" BorderBrush="{DynamicResource BorderColorBrush}" 
+        <Border Margin="5" Grid.Row="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" BorderBrush="{DynamicResource BindingEditorDialogBorderColorBrush}" 
                 BorderThickness="1" CornerRadius="5">
             <TextBlock Text="Press a key or mouse button" TextAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <Button Margin="5" Grid.Row="1" Background="{DynamicResource BorderBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}"
+        <Button Margin="5" Grid.Row="1" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >
             <TextBlock Text="Clear" TextAlignment="Center" />
         </Button>
