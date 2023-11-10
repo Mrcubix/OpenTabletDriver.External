@@ -1,5 +1,8 @@
+using Newtonsoft.Json;
+
 namespace OpenTabletDriver.External.Common.Serializables
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class SerializablePluginSettings
     {
         public SerializablePluginSettings()
@@ -14,7 +17,10 @@ namespace OpenTabletDriver.External.Common.Serializables
             Identifier = identifier;
         }
 
+        [JsonProperty]
         public int Identifier { get; set; }
+
+        [JsonProperty]
         public string? Value { get; set; }
     }
 }
