@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <NoWarn>NETSDK1138; VSTHRD200</NoWarn>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>VSTHRD200</NoWarn>
     <RootNamespace>OpenTabletDriver.External.Common</RootNamespace>
   </PropertyGroup>
 
@@ -10,7 +10,7 @@
     <!-- OpenTabletDriver (Private Assets) -->
     <ProjectReference Include="../.modules/OpenTabletDriver/OpenTabletDriver.Desktop/OpenTabletDriver.Desktop.csproj" PrivateAssets="all" />
     <!-- Newtonsoft.Json -->
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>
