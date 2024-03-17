@@ -1,10 +1,18 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+  <Color x:Key="AccentColor">#272727</Color>
+  <Color x:Key="BodyColor">#343434</Color>
+  <Color x:Key="BorderColor">#1C1C1C</Color>
+  <Color x:Key="InputBorderColor">#292929</Color>
+  <Color x:Key="SideBarColor">#2F2F2F</Color>
+  <Color x:Key="TextColor">#9F9F9F</Color>
+
   <Color x:Key="BindingEditorDialogBorderColor">#FFFFFF</Color>
   <Color x:Key="BindingEditorDialogBorderBackgroundColor">#1E2738</Color>
   <Color x:Key="BindingEditorDialogBodyColor">#171C2C</Color>
   <Color x:Key="BindingEditorDialogForegroundColor">#FFFFFF</Color>
   <Color x:Key="BindingEditorButtonColor">#33FFFFFF</Color>
+  <Color x:Key="AreaDisplayMappedColor">#800078D7</Color>
 
 </ResourceDictionary>
