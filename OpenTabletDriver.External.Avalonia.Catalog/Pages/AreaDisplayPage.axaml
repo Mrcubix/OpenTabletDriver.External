@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.ViewModels"
+             xmlns:pages="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.Pages"
+             xmlns:ext-vm="clr-namespace:OpenTabletDriver.External.Avalonia.ViewModels;assembly=OpenTabletDriver.External.Avalonia"
+             xmlns:ext-controls="clr-namespace:OpenTabletDriver.External.Avalonia.Controls;assembly=OpenTabletDriver.External.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="660" d:DesignHeight="600"
+             x:DataType="vm:MainViewModel"
+             x:Class="OpenTabletDriver.External.Avalonia.Catalog.Pages.AreaDisplayPage">
+
+  <Design.DataContext>
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <Design.PreviewWith>
+    <StackPanel Grid.IsSharedSizeScope="True">
+      
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <Grid RowDefinitions="*, *" ColumnDefinitions="*, *">
+    <ext-controls:AreaDisplay Grid.Row="0" Grid.Column="0" DataContext="{Binding FullArea}" />
+    <ext-controls:AreaDisplay Grid.Row="1" Grid.Column="0" DataContext="{Binding HalfArea}" />
+    <ext-controls:AreaDisplay Grid.Row="0" Grid.Column="1" DataContext="{Binding QuarterArea}" />
+    <ext-controls:AreaDisplay Grid.Row="1" Grid.Column="1" DataContext="{Binding CustomArea}" />
+  </Grid>
+</UserControl>

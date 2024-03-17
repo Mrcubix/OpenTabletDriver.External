@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.ViewModels"
+             xmlns:views="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.Views"
+             xmlns:pages="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.Pages"
+             xmlns:controls="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:MainViewModel"
+             x:Class="OpenTabletDriver.External.Avalonia.Catalog.MainView">
+
+  <Design.DataContext>
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <Grid>
+    <Grid.Styles>
+      <Style Selector="TextBlock.h2">
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="MaxWidth" Value="400" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+      </Style>
+    </Grid.Styles>
+    <controls:HamburgerMenu Name="Sidebar" ContentBackground="{StaticResource BodyColorBrush}" Grid.IsSharedSizeScope="True">
+      <TabItem Header="Binding Display">
+        <pages:BindingDisplayPage />
+      </TabItem>
+      <TabItem Header="Area Display">
+        <pages:AreaDisplayPage />
+      </TabItem>
+      <TabItem Header="Binding Editor">
+        
+      </TabItem>
+      <TabItem Header="Advanced Binding Editor">
+
+      </TabItem>
+    </controls:HamburgerMenu>
+  </Grid>
+</UserControl>

@@ -1,0 +1,21 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenTabletDriver.External.Avalonia.Catalog.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Custom controls defined in other assemblies -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Controls/HamburgerMenu.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <StyleInclude Source="avares://OpenTabletDriver.External.Avalonia/Themes/Default/Default.axaml" />
+    </Application.Styles>
+</Application>

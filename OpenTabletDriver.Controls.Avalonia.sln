@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTabletDriver.External.Avalonia.Catalog", "OpenTabletDriver.External.Avalonia.Catalog\OpenTabletDriver.External.Avalonia.Catalog.csproj", "{F8DC43F4-0A1D-41CE-8CB3-C9C38949B0DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{BF0F8D48-6340-4887-981C-15546DD72800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF0F8D48-6340-4887-981C-15546DD72800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF0F8D48-6340-4887-981C-15546DD72800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8DC43F4-0A1D-41CE-8CB3-C9C38949B0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DC43F4-0A1D-41CE-8CB3-C9C38949B0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8DC43F4-0A1D-41CE-8CB3-C9C38949B0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DC43F4-0A1D-41CE-8CB3-C9C38949B0DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
