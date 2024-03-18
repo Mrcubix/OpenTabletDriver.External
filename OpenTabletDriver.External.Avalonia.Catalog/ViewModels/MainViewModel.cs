@@ -22,4 +22,6 @@ public class MainViewModel : ReactiveObject
     public AreaDisplayViewModel HalfArea { get; set; } = new(_AvailableArea, _HalfMappedArea);
     public AreaDisplayViewModel QuarterArea { get; set; } = new(_AvailableArea, _QuarterMappedArea);
     public AreaDisplayViewModel CustomArea { get; set; } = new();
+
+    public static Area FullAreaModel => _FullMappedArea;
 }

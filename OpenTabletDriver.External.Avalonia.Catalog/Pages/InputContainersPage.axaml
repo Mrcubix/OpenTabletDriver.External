@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.ViewModels"
+             xmlns:pages="clr-namespace:OpenTabletDriver.External.Avalonia.Catalog.Pages"
+             xmlns:ext-tcontrols="clr-namespace:OpenTabletDriver.External.Avalonia.TemplatedControls;assembly=OpenTabletDriver.External.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="660" d:DesignHeight="600"
+             x:DataType="vm:MainViewModel"
+             x:Class="OpenTabletDriver.External.Avalonia.Catalog.Pages.InputContainersPage">
+
+  <Design.DataContext>
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <Design.PreviewWith>
+    <StackPanel Grid.IsSharedSizeScope="True">
+      
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+      <TextBlock Grid.Row="0" Text="Double Inputs" FontSize="20" FontWeight="Bold"/>
+      <ext-tcontrols:DoubleInput DataContext="{Binding FullAreaModel}" Grid.Row="1" Label="Width" Value="{Binding Width}" Unit="mm" Description="" Margin="0, 10, 0, 0"/>
+      <ext-tcontrols:DoubleInput DataContext="{Binding FullAreaModel}" Grid.Row="2" Label="Height" Value="{Binding Height}" Unit="mm" Description="" Margin="0, 10, 0, 0"/>
+      <ext-tcontrols:DoubleInput DataContext="{Binding FullAreaModel}" Grid.Row="3" Label="X" Value="{Binding X}" Unit="mm" Description="" Margin="0, 10, 0, 0"/>
+      <ext-tcontrols:DoubleInput DataContext="{Binding FullAreaModel}" Grid.Row="4" Label="Y" Value="{Binding Y}" Unit="mm" Description="" Margin="0, 10, 0, 0"/>
+    </Grid>
+  </ScrollViewer>
+</UserControl>

@@ -29,6 +29,9 @@
       <TabItem Header="Area Display">
         <pages:AreaDisplayPage />
       </TabItem>
+      <TabItem Header="Input Containers">
+        <pages:InputContainersPage />
+      </TabItem>
       <TabItem Header="Binding Editor">
         
       </TabItem>
