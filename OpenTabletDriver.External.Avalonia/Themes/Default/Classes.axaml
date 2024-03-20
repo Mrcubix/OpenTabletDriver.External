@@ -1,0 +1,37 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tc="using:OpenTabletDriver.UI.TemplatedControls">
+
+    <Style Selector=":is(Control).HorizontalGridMarginTight">
+      <Setter Property="Margin" Value="{DynamicResource HorizontalGridMarginTightThickness}" />
+    </Style>
+
+    <Style Selector="Border.Container">
+      <Setter Property="Background" Value="#0effffff"/>
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="Height" Value="44" />
+      <Setter Property="Padding" Value="12, 4" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <BrushTransition Property="Background" Duration="0:0:0:0.2"/>
+        </Transitions>
+      </Setter>
+
+      <Style Selector="^:pointerover">
+        <Setter Property="Background" Value="#12ffffff"/>
+      </Style>
+
+      <Style Selector="^ > Grid">
+        <Style Selector="^ > :is(Control)">
+          <Setter Property="HorizontalAlignment" Value="Stretch"/>
+          <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="^ > Slider">
+          <!-- check this when changing Container's Height -->
+          <Setter Property="Margin" Value="0, -14, 24, 0"/>
+        </Style>
+      </Style>
+    </Style>
+
+</Styles>

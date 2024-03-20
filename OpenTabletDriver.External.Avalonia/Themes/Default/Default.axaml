@@ -1,9 +1,13 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+  <StyleInclude Source="Classes.axaml" />
+  <StyleInclude Source="Controls/Default.axaml" />
+
   <Styles.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="Resources.axaml" />
         <ResourceInclude Source="Colors.axaml" />
         <ResourceInclude Source="Brushes.axaml" />
       </ResourceDictionary.MergedDictionaries>
