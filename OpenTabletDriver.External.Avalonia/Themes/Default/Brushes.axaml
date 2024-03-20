@@ -13,6 +13,7 @@
   <SolidColorBrush x:Key="BindingEditorDialogBodyBrush" Color="{StaticResource BindingEditorDialogBodyColor}" />
   <SolidColorBrush x:Key="BindingEditorDialogForegroundBrush" Color="{StaticResource BindingEditorDialogForegroundColor}" />
   <SolidColorBrush x:Key="BindingEditorButtonBrush" Color="{StaticResource BindingEditorButtonColor}" />
+  <SolidColorBrush x:Key="AreaDisplayAvailableAreaBrush" Color="{StaticResource AreaDisplayAvailableAreaColor}" />
   <SolidColorBrush x:Key="AreaDisplayMappedBrush" Color="{StaticResource AreaDisplayMappedColor}" />
 
 </ResourceDictionary>

@@ -22,7 +22,7 @@ namespace OpenTabletDriver.External.Avalonia.Controls;
 /// </remarks>
 public partial class AreaDisplay : UserControl
 {
-    private readonly ImmutableSolidColorBrush _accentBrush = new(0x272727);
+    private readonly ImmutableSolidColorBrush _accentBrush = new(0x0AFFFFFF);
     private readonly ImmutableSolidColorBrush _mappedBrush = new(0x800078D7);
 
     private bool _isDragging;
@@ -48,7 +48,7 @@ public partial class AreaDisplay : UserControl
 
             VIEW_AreaCanvas.Children.Clear();
 
-            this.TryFindResource("AccentColorBrush", out IBrush? accentBrush);
+            this.TryFindResource("AreaDisplayAvailableAreaBrush", out IBrush? accentBrush);
             this.TryFindResource("AreaDisplayMappedBrush", out IBrush? mappedBrush);
 
             // Rebuild the Defined Area's Border

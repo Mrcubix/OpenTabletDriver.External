@@ -13,6 +13,7 @@
   <Color x:Key="BindingEditorDialogBodyColor">#171C2C</Color>
   <Color x:Key="BindingEditorDialogForegroundColor">#FFFFFF</Color>
   <Color x:Key="BindingEditorButtonColor">#33FFFFFF</Color>
+  <Color x:Key="AreaDisplayAvailableAreaColor">#0AFFFFFF</Color>
   <Color x:Key="AreaDisplayMappedColor">#800078D7</Color>
 
 </ResourceDictionary>
