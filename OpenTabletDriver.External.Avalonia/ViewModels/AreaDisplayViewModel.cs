@@ -23,7 +23,8 @@ public partial class AreaDisplayViewModel : ViewModelBase
         _availableArea = availableArea;
         AvailableArea = new Area(availableArea);
 
-        MappedArea = new Area(availableArea);
+        MappedArea = new Area(availableArea.X + availableArea.Width / 2, availableArea.Y + availableArea.Height / 2, 
+                              availableArea.Width, availableArea.Height, true);
 
         MappedArea.PropertyChanged += OnMappedAreaChanged;
     }
@@ -216,8 +217,8 @@ public partial class Area : ObservableObject
 
     public Area(Rect rect, double rotation = 0, bool centerOrigin = false)
     {
-        X = rect.X + rect.Width / 2;
-        Y = rect.Y + rect.Height / 2;
+        X = rect.X;
+        Y = rect.Y;
         Width = rect.Width;
         Height = rect.Height;
         Rotation = rotation;
