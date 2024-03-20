@@ -29,9 +29,14 @@ public partial class AreaDisplayViewModel : ViewModelBase
         MappedArea.PropertyChanged += OnMappedAreaChanged;
     }
 
-    public AreaDisplayViewModel(Rect availableArea, Area mappedArea) : this(availableArea)
+    public AreaDisplayViewModel(Rect availableArea, Area mappedArea)
     {
+        _availableArea = availableArea;
+        AvailableArea = new Area(availableArea);
+
         MappedArea = mappedArea;
+
+        MappedArea.PropertyChanged += OnMappedAreaChanged;
     }
 
     public AreaDisplayViewModel(Area availableArea, Area mappedArea)
