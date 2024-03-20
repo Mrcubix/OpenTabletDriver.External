@@ -9,6 +9,9 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 public partial class AreaDisplayViewModel : ViewModelBase
 {
+    private Rect _availableArea;
+    private bool _restricting;
+
     #region Constructors
 
     public AreaDisplayViewModel() : this(new Area(0, 0, 152.0, 95.0), new Area(36, 22, 68, 38.25, true))
@@ -47,9 +50,6 @@ public partial class AreaDisplayViewModel : ViewModelBase
     #endregion
 
     #region Properties
-
-    
-    private Rect _availableArea;
 
     /// <summary>
     ///   The area available for mapping.
@@ -146,7 +146,15 @@ public partial class AreaDisplayViewModel : ViewModelBase
 
     #region Event Handlers
 
-    private void OnMappedAreaChanged(object? sender, PropertyChangedEventArgs e) => RestrictToAvailableArea();
+    private void OnMappedAreaChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (_restricting)
+            return;
+
+        _restricting = true;
+        RestrictToAvailableArea();
+        _restricting = false;
+    }
 
     #endregion
 }
