@@ -112,6 +112,8 @@ public partial class AreaDisplay : UserControl
             Tag = area
         };
 
+        border.Classes.Add("AvailableArea");
+
         return border;
     }
 
