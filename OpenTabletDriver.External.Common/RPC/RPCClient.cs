@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using StreamJsonRpc;
 
 namespace OpenTabletDriver.External.Common.RPC
@@ -11,16 +13,6 @@ namespace OpenTabletDriver.External.Common.RPC
         private readonly string pipeName;
         private NamedPipeClientStream stream;
         private JsonRpc rpc;
-
-        public T Instance { private set; get; }
-
-        public event EventHandler Disconnected;
-        public event EventHandler Connected;
-        public event EventHandler Attached;
-        public event EventHandler Connecting;
-        
-        public bool IsConnected { get; private set; } = false;
-        public bool IsConnecting { get; private set; } = false;
 
         public RpcClient(string pipeName)
         {
@@ -45,6 +37,16 @@ namespace OpenTabletDriver.External.Common.RPC
             };
         }
 
+        public event EventHandler Disconnected;
+        public event EventHandler Connected;
+        public event EventHandler Attached;
+        public event EventHandler Connecting;
+
+        public T Instance { private set; get; }
+        public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
+        public bool IsConnected { get; private set; } = false;
+        public bool IsConnecting { get; private set; } = false;
+
         public async Task ConnectAsync()
         {
             this.stream = GetStream();
@@ -55,7 +57,7 @@ namespace OpenTabletDriver.External.Common.RPC
 
             Connected?.Invoke(this, null!);
 
-            rpc = new JsonRpc(this.stream);
+            rpc = GetRpc(this.stream);
             this.Instance = this.rpc.Attach<T>();
             rpc.StartListening();
 
@@ -77,6 +79,24 @@ namespace OpenTabletDriver.External.Common.RPC
                 PipeDirection.InOut,
                 PipeOptions.Asynchronous | PipeOptions.WriteThrough | PipeOptions.CurrentUserOnly
             );
+        }
+
+        private JsonRpc GetRpc(NamedPipeClientStream stream)
+        {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            // If no converters are provided, use the default JsonRpc
+            if (Converters.Count == 0)
+                return new JsonRpc(stream);
+
+            // Otherwise, use a custom JsonRpc with the provided converters
+            var messageFormatter = new JsonMessageFormatter();
+
+            foreach (var converter in Converters)
+                messageFormatter.JsonSerializer.Converters.Add(converter);
+
+            return new JsonRpc(new HeaderDelimitedMessageHandler(stream, stream, messageFormatter));
         }
 
         public void Dispose()
