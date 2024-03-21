@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenTabletDriver.Plugin;
 using StreamJsonRpc;
 
@@ -15,15 +17,17 @@ namespace OpenTabletDriver.External.Common.RPC
 
         private bool hasStarted = false;
 
-        public event EventHandler<bool> ConnectionStateChanged;
-        public T Instance { protected set; get; } = new T();
-
         public RpcServer(string pipeName)
         {
             this.pipeName = pipeName;
             this.rpc = null!;
             this.ConnectionStateChanged = null!;
         }
+
+        public event EventHandler<bool> ConnectionStateChanged;
+
+        public T Instance { protected set; get; } = new T();
+        public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
 
         public async Task MainAsync()
         {
@@ -42,7 +46,7 @@ namespace OpenTabletDriver.External.Common.RPC
                     try
                     {
                         ConnectionStateChanged?.Invoke(this, true);
-                        this.rpc = JsonRpc.Attach(stream, Instance);
+                        this.rpc = GetRpc(stream, Instance);
                         await this.rpc.Completion;
                     }
                     catch (ObjectDisposedException)
@@ -72,6 +76,27 @@ namespace OpenTabletDriver.External.Common.RPC
                 PipeTransmissionMode.Byte,
                 PipeOptions.Asynchronous | PipeOptions.WriteThrough | PipeOptions.CurrentUserOnly
             );
+        }
+
+        private JsonRpc GetRpc(NamedPipeServerStream stream, T Instance)
+        {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            // If no converters are provided, use the default JsonRpc
+            if (Converters.Count == 0)
+                return JsonRpc.Attach(stream, Instance);
+
+            // Otherwise, create a custom JsonRpc with the provided converters
+            var messageFormatter = new JsonMessageFormatter();
+
+            foreach (var converter in Converters)
+                messageFormatter.JsonSerializer.Converters.Add(converter);
+
+            var rpc = new JsonRpc(new HeaderDelimitedMessageHandler(stream, stream, messageFormatter), Instance);
+            rpc.StartListening();
+
+            return rpc;
         }
 
         public void Dispose()
