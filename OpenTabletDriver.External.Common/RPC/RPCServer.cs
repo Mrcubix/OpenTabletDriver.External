@@ -22,12 +22,20 @@ namespace OpenTabletDriver.External.Common.RPC
             this.pipeName = pipeName;
             this.rpc = null!;
             this.ConnectionStateChanged = null!;
+            this.Instance = new T();
+        }
+
+        public RpcServer(string pipeName, T instance)
+        {
+            this.pipeName = pipeName;
+            this.rpc = null!;
+            this.ConnectionStateChanged = null!;
+            this.Instance = instance;
         }
 
         public event EventHandler<bool> ConnectionStateChanged;
-
-        public T Instance { protected set; get; } = new T();
         public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
+        public T Instance { protected set; get; }
 
         public async Task MainAsync()
         {
