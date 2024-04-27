@@ -34,6 +34,17 @@ public partial class BindingEditorDialog : Window
     public SerializablePlugin? KeyBindingPlugin { get; private set; }
     public SerializablePlugin? MouseBindingPlugin { get; private set; }
 
+    protected override void OnOpened(EventArgs e)
+    {
+        if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
+        {
+            Activate();
+            Inputs.Focus();
+        }
+
+        base.OnOpened(e);
+    }
+
     protected override void OnDataContextChanged(EventArgs e)
     {
         base.OnDataContextChanged(e);
