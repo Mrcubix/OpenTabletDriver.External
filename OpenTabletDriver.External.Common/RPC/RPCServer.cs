@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using OpenTabletDriver.Plugin;
 using StreamJsonRpc;
 
 namespace OpenTabletDriver.External.Common.RPC
@@ -66,7 +65,7 @@ namespace OpenTabletDriver.External.Common.RPC
                     }
                     catch (Exception ex)
                     {
-                        Log.Exception(ex);
+                        Console.WriteLine(ex);
                     }
 
                     ConnectionStateChanged?.Invoke(this, false);

@@ -1,15 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <NoWarn>$(NoWarn); NETSDK1138; VSTHRD200; NU1902; NU1903</NoWarn>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <NoWarn>$(NoWarn); VSTHRD200;</NoWarn>
     <RootNamespace>OpenTabletDriver.External.Common</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- OpenTabletDriver (Private Assets) -->
-    <ProjectReference Include="../.modules/OpenTabletDriver/OpenTabletDriver.Desktop/OpenTabletDriver.Desktop.csproj" PrivateAssets="all" />
-    <!-- Newtonsoft.Json -->
+    <PackageReference Include="StreamJsonRpc" Version="2.6.121" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
