@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -38,6 +39,18 @@ public partial class AreaDisplay : UserControl
     {
         InitializeComponent();
     }
+
+    // --------------------------------- Properties --------------------------------- //
+
+    public static readonly StyledProperty<bool> AllowInteractionProperty = AvaloniaProperty.Register<AreaDisplay, bool>(nameof(AllowInteraction), true);
+
+    public bool AllowInteraction
+    {
+        get => GetValue(AllowInteractionProperty);
+        set => SetValue(AllowInteractionProperty, value);
+    }
+
+    // ---------------------------------   Methods   --------------------------------- //
 
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -139,6 +152,8 @@ public partial class AreaDisplay : UserControl
 
     private void OnPointerPressedMappedArea(object? sender, PointerPressedEventArgs e, Border visual)
     {
+        if (!AllowInteraction) return;
+
         var point = e.GetCurrentPoint(visual);
 
         if (point.Properties.IsLeftButtonPressed)
@@ -151,6 +166,8 @@ public partial class AreaDisplay : UserControl
 
     private void OnPointerReleasedMappedArea(object? sender, PointerReleasedEventArgs e)
     {
+        if (!AllowInteraction) return;
+
         if (e.InitialPressMouseButton == MouseButton.Left)
         {
             _isDragging = false;
