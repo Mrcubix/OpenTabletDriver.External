@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Name="PART_Label" Grid.Column="0" Classes="Label" Text="{TemplateBinding Label}" />
-            <TextBox Name="PART_Input" Grid.Column="1" Classes="Input" Text="{TemplateBinding Text}" Margin="10,0" />
+            <TextBox Name="PART_Input" Grid.Column="1" Classes="Input" Text="{TemplateBinding Text}" IsReadOnly="{TemplateBinding IsReadOnly}" Margin="10,0" />
             <TextBlock Name="PART_Unit" Grid.Column="2" Classes="Unit" Text="{TemplateBinding Unit}" HorizontalAlignment="Left" />
           </Grid>
         </Border>

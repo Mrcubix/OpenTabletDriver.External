@@ -45,6 +45,9 @@ public class DoubleInput : DescribedInput
     public static readonly StyledProperty<int> PrecisionProperty =
         AvaloniaProperty.Register<DoubleInput, int>(nameof(Precision), 2);
 
+    public static readonly StyledProperty<bool> IsReadOnlyProperty =
+        AvaloniaProperty.Register<DoubleInput, bool>(nameof(IsReadOnly), false);
+
     public double? Value
     {
         get => _value;
@@ -67,6 +70,12 @@ public class DoubleInput : DescribedInput
     {
         get => GetValue(PrecisionProperty);
         set => SetValue(PrecisionProperty, value);
+    }
+
+    public bool IsReadOnly
+    {
+        get => GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
     }
 
     static DoubleInput()
