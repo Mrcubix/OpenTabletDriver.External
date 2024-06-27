@@ -42,12 +42,12 @@ public partial class AreaDisplay : UserControl
 
     // --------------------------------- Properties --------------------------------- //
 
-    public static readonly StyledProperty<bool> AllowInteractionProperty = AvaloniaProperty.Register<AreaDisplay, bool>(nameof(AllowInteraction), true);
+    public static readonly StyledProperty<bool> IsReadOnlyProperty = AvaloniaProperty.Register<AreaDisplay, bool>(nameof(IsReadOnly), false);
 
-    public bool AllowInteraction
+    public bool IsReadOnly
     {
-        get => GetValue(AllowInteractionProperty);
-        set => SetValue(AllowInteractionProperty, value);
+        get => GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
     }
 
     // ---------------------------------   Methods   --------------------------------- //
@@ -152,7 +152,7 @@ public partial class AreaDisplay : UserControl
 
     private void OnPointerPressedMappedArea(object? sender, PointerPressedEventArgs e, Border visual)
     {
-        if (!AllowInteraction) return;
+        if (IsReadOnly) return;
 
         var point = e.GetCurrentPoint(visual);
 
@@ -166,7 +166,7 @@ public partial class AreaDisplay : UserControl
 
     private void OnPointerReleasedMappedArea(object? sender, PointerReleasedEventArgs e)
     {
-        if (!AllowInteraction) return;
+        if (IsReadOnly) return;
 
         if (e.InitialPressMouseButton == MouseButton.Left)
         {
