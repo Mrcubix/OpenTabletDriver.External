@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>$(NoWarn); VSTHRD200;</NoWarn>
     <RootNamespace>OpenTabletDriver.External.Common</RootNamespace>
   </PropertyGroup>
