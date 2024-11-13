@@ -14,17 +14,19 @@ namespace OpenTabletDriver.External.Common.Serializables
         public SerializablePlugin()
         {
             PluginName = "Not Set";
-            FullName = "";
+            FullName = string.Empty;
             Identifier = -1;
             ValidProperties = new string[0];
+            Property = string.Empty;
         }
 
-        public SerializablePlugin(string? pluginName, string? fullName, int identifier, string[] validProperties)
+        public SerializablePlugin(string? pluginName, string? fullName, int identifier, string[] validProperties, string property = "")
         {
             PluginName = pluginName;
             FullName = fullName;
             Identifier = identifier;
             ValidProperties = validProperties;
+            Property = property;
         }
 
         /// <summary>

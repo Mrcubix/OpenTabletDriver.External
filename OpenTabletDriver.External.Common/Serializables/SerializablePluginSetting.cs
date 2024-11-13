@@ -9,12 +9,14 @@ namespace OpenTabletDriver.External.Common.Serializables
         {
             Value = null!;
             Identifier = -1;
+            Property = string.Empty;
         }
 
-        public SerializablePluginSettings(string value, int identifier)
+        public SerializablePluginSettings(string value, int identifier, string property = "")
         {
             Value = value;
             Identifier = identifier;
+            Property = property;
         }
 
         /// <summary>
