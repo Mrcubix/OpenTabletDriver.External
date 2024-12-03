@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 
 namespace OpenTabletDriver.External.Common.Serializables
@@ -9,25 +11,27 @@ namespace OpenTabletDriver.External.Common.Serializables
     ///   This is made with bindings in mind.
     /// </remarks>
     /// TODO: Implement SerializablePluginStore as well as a way to serialize properties and their types.
-    public class SerializablePlugin
+    public class SerializablePluginSettingsStore
     {
-        public SerializablePlugin()
+        public SerializablePluginSettingsStore()
         {
             PluginName = "Not Set";
             FullName = string.Empty;
             Identifier = -1;
-            ValidProperties = new string[0];
-            Property = string.Empty;
+            Settings = new ObservableCollection<SerializablePluginSettings>();
         }
 
-        public SerializablePlugin(string? pluginName, string? fullName, int identifier, string[] validProperties, string property = "")
+        public SerializablePluginSettingsStore(string? pluginName, string? fullName, int identifier, 
+                                               ObservableCollection<SerializablePluginSettings> settings)
         {
             PluginName = pluginName;
             FullName = fullName;
             Identifier = identifier;
-            ValidProperties = validProperties;
-            Property = property;
+            Settings = settings;
         }
+
+        public SerializablePluginSettingsStore(string? pluginName, string? fullName, int identifier, IList<SerializablePluginSettings> settings)
+            : this(pluginName, fullName, identifier, new ObservableCollection<SerializablePluginSettings>(settings)) { }
 
         /// <summary>
         ///   The display name of the plugin.
@@ -48,15 +52,10 @@ namespace OpenTabletDriver.External.Common.Serializables
         public int Identifier { get; set; }
 
         /// <summary>
-        ///   The valid values for a property.
+        ///   A collection of property names and their values.<br/>
+        ///   Represent the settings of the plugin.
         /// </summary>
-        [JsonProperty("ValidProperties")]
-        public string[] ValidProperties { get; set; }
-
-        /// <summary>
-        ///   The name of the property.
-        /// </summary>
-        [JsonProperty("Property")]
-        public string Property { get; set; }
+        [JsonProperty("Settings")]
+        public ObservableCollection<SerializablePluginSettings> Settings { get; set; }
     }
 }

@@ -26,8 +26,12 @@
         <TextBlock Text="Property" Margin="0, 8" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" />
 
         <ComboBox ItemsSource="{Binding ValidProperties}" SelectedItem="{Binding SelectedProperty}" Name="PropertiesComboBox"
-                  Grid.Row="3"  Grid.ColumnSpan="2"
+                  IsVisible="{Binding !!ValidProperties.Count}" Grid.Row="3"  Grid.ColumnSpan="2"
                   VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+
+        <TextBox Text="{Binding SelectedProperty}" Name="PropertiesTextBox" Grid.Row="3" Grid.ColumnSpan="2"
+                 IsVisible="{Binding !!!ValidProperties.Count}" 
+                 VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
         <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >

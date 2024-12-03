@@ -51,7 +51,10 @@ public partial class AdvancedBindingEditorDialog : Window
 
                 if (plugin != null)
                 {
-                    PropertiesComboBox.ItemsSource = plugin.ValidProperties;
+                    // Clear instead of setting the whole collection otherwise the property binding WILL fail
+                    vm.ValidProperties.Clear();
+                    foreach (var property in plugin.ValidProperties)
+                        vm.ValidProperties.Add(property);
                 }
             };
         }
