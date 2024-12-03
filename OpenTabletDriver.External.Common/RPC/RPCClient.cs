@@ -22,15 +22,19 @@ namespace OpenTabletDriver.External.Common.RPC
             this.Instance = null!;
 
             this.Disconnected += (_, _) => { 
+                IsAttached = false;
                 IsConnected = false;
                 IsConnecting = false;
             };
+
             this.Connected += (_, _) => { 
                 IsConnected = true;
                 IsConnecting = false;
             };
 
-            this.Attached = null!;
+            this.Attached = (_, _) => {
+                IsAttached = true;
+            };
 
             this.Connecting += (_, _) => { 
                 IsConnecting = true;
@@ -46,6 +50,7 @@ namespace OpenTabletDriver.External.Common.RPC
         public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
         public bool IsConnected { get; private set; } = false;
         public bool IsConnecting { get; private set; } = false;
+        public bool IsAttached { get; private set; } = false;
 
         public async Task ConnectAsync()
         {
