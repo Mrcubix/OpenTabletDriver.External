@@ -25,6 +25,7 @@ namespace OpenTabletDriver.External.Common.RPC
                 IsAttached = false;
                 IsConnected = false;
                 IsConnecting = false;
+                Instance = null!;
             };
 
             this.Connected += (_, _) => { 
