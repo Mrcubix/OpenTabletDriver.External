@@ -14,8 +14,6 @@ namespace OpenTabletDriver.External.Common.RPC
         private JsonRpc rpc;
         private readonly string pipeName;
 
-        private bool hasStarted = false;
-
         public RpcServer(string pipeName)
         {
             this.pipeName = pipeName;
@@ -36,15 +34,16 @@ namespace OpenTabletDriver.External.Common.RPC
 
         public T Instance { protected set; get; }
         public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
+        public bool HasStarted { get; private set; } = false;
 
         public async Task MainAsync()
         {
-            if (hasStarted)
+            if (HasStarted)
                 return;
             else
-                hasStarted = true;
+                HasStarted = true;
 
-            while (hasStarted)
+            while (HasStarted)
             {
                 var stream = CreateStream();
                 await stream.WaitForConnectionAsync();
@@ -109,7 +108,7 @@ namespace OpenTabletDriver.External.Common.RPC
 
         public void Dispose()
         {
-            hasStarted = false;
+            HasStarted = false;
             rpc?.Dispose();
         }
     }
