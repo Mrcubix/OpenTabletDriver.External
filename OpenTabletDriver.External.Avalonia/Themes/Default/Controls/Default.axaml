@@ -5,7 +5,11 @@
   <Styles.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="BooleanInput.axaml"/>
         <ResourceInclude Source="DoubleInput.axaml"/>
+        <ResourceInclude Source="EnumInput.axaml"/>
+        <ResourceInclude Source="RangedInput.axaml"/>
+        <ResourceInclude Source="StringInput.axaml"/>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Styles.Resources>

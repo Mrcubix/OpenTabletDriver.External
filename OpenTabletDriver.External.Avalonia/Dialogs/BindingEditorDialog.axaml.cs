@@ -82,12 +82,15 @@ public partial class BindingEditorDialog : Window
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
-        if (DataContext is BindingEditorDialogViewModel vm)
+        if (DataContext is BindingEditorDialogViewModel &&
+            e.Pointer.Type == PointerType.Mouse)
+        {
             Close(new SerializablePluginSettings()
             {
                 Identifier = MouseBindingPlugin?.Identifier ?? -1,
                 Value = ParseMouseClick(e)
             });
+        }
 
         base.OnPointerPressed(e);
     }
@@ -102,6 +105,10 @@ public partial class BindingEditorDialog : Window
             return "Right";
         else if (properties.IsMiddleButtonPressed)
             return "Middle";
+        else if (properties.IsXButton1Pressed)
+            return "Backward";
+        else if (properties.IsXButton2Pressed)
+            return "Forward";
         else
             return "None";
     }

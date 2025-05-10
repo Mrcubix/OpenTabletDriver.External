@@ -8,9 +8,17 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 public partial class BindingDisplayViewModel : ViewModelBase
 {
+    /// <summary>
+    ///   The description of the binding. <br>
+    ///   This is the text on the left column.
+    /// </summary>
     [ObservableProperty]
     private string? _description;
 
+    /// <summary>
+    ///   The content of the binding. <br>
+    ///   This is the text contained in the button leading to the binding editor dialog.
+    /// </summary>
     [ObservableProperty]
     private string? _content;
 
