@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Common.Serializables
 {
@@ -19,6 +21,13 @@ namespace OpenTabletDriver.External.Common.Serializables
             Property = property;
         }
 
+        public SerializablePluginSettings(object? value, int identifier, SerializableProperty property)
+        {
+            Identifier = identifier;
+            Property = property.Name;
+            Value = value == null ? null : JToken.FromObject(value);
+        }
+
         /// <summary>
         ///   The identifier of the plugin.
         /// </summary>
@@ -35,7 +44,7 @@ namespace OpenTabletDriver.External.Common.Serializables
         ///   The value of the property.
         /// </summary>
         [JsonProperty]
-        public string? Value { get; set; }
+        public JToken? Value { get; set; }
 
         [JsonIgnore]
         public bool HasValue => Value != null;

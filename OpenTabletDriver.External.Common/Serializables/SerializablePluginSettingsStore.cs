@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Newtonsoft.Json;
+using OpenTabletDriver.External.Common.Extensions;
+using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Common.Serializables
 {
@@ -57,5 +60,35 @@ namespace OpenTabletDriver.External.Common.Serializables
         /// </summary>
         [JsonProperty("Settings")]
         public ObservableCollection<SerializablePluginSettings> Settings { get; set; }
+
+        public SerializablePluginSettings this[string name]
+        {
+            get
+            {
+                var setting = Settings.FirstOrDefault(p => p.Property == name);
+
+                if (setting == null)
+                {
+                    setting = new SerializablePluginSettings(string.Empty, -1, name);
+                    Settings.Add(setting);
+                }
+
+                return setting;
+            }
+            set
+            {
+                // If the setting already exists, update it
+                if (Settings.FirstOrDefault(p => p.Property == value.Property) is SerializablePluginSettings setting)
+                    Settings.Replace(setting, value);
+                else
+                    Settings.Add(value);
+            }
+        }
+
+        public SerializablePluginSettings this[SerializableProperty property]
+        {
+            get => this[property.Name];
+            set => this[property.Name] = value;
+        }
     }
 }
