@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using Newtonsoft.Json.Linq;
 using OpenTabletDriver.External.Avalonia.Catalog.ViewModels;
 using OpenTabletDriver.External.Avalonia.Dialogs;
 using OpenTabletDriver.External.Avalonia.ViewModels;
@@ -60,11 +61,9 @@ public partial class MainWindow : AppMainWindow
                 DataContext = _bindingEditorDialogViewModel
             };
 
-            #if DEBUG
-
+#if DEBUG
             dialog.AttachDevTools();
-
-            #endif
+#endif
 
             // Now we show the dialog
 
@@ -79,7 +78,8 @@ public partial class MainWindow : AppMainWindow
                 return;
 
             // The user selected "Clear"
-            if (res.Identifier == -1 || res.Value == "None")
+            if (res.Identifier == -1 || res.Value == null || 
+               (res.Value.Type != JTokenType.Null && res.Value.ToObject<string>() == "None"))
             {
                 e.PluginProperty = null;
                 e.Content = "";
@@ -87,7 +87,7 @@ public partial class MainWindow : AppMainWindow
             else
             {
                 e.PluginProperty = res;
-                e.Content = res.Value;
+                e.Content = res.Value.ToString();
             }
         }
     }
@@ -104,9 +104,10 @@ public partial class MainWindow : AppMainWindow
 
             var currentPlugin = _plugins.FirstOrDefault(p => p.Identifier == e.PluginProperty?.Identifier);
             var selectedType = currentPlugin?.PluginName ?? currentPlugin?.FullName ?? "Unknown";
-
+            
+            // TODO : Replace single string property box with the equivalent of PluginSettingStoreEditor
             var validProperties = currentPlugin?.ValidProperties ?? new string[0];
-            var selectedProperty = e.PluginProperty?.Value ?? "";
+            var selectedProperty = e.PluginProperty?.Value?.ToObject<string>() ?? "";
 
             // Now we set the view model's properties
 
@@ -123,6 +124,10 @@ public partial class MainWindow : AppMainWindow
                 Plugins = _plugins
             };
 
+#if DEBUG
+            dialog.AttachDevTools();
+#endif
+
             // Now we show the dialog
 
             var res = await dialog.ShowDialog<SerializablePluginSettings>(this);
@@ -136,7 +141,8 @@ public partial class MainWindow : AppMainWindow
                 return;
 
             // The user selected "Clear"
-            if (res.Identifier == -1 || res.Value == "None")
+            if (res.Identifier == -1 || res.Value == null || 
+               (res.Value.Type != JTokenType.Null && res.Value.ToObject<string>() == "None"))
             {
                 e.PluginProperty = null;
                 e.Content = "";
@@ -144,7 +150,7 @@ public partial class MainWindow : AppMainWindow
             else
             {
                 e.PluginProperty = res;
-                e.Content = res.Value;
+                e.Content = res.Value.ToString();
             }
         }
     }

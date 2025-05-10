@@ -32,6 +32,9 @@
       <TabItem Header="Input Containers">
         <pages:InputContainersPage />
       </TabItem>
+      <TabItem Header="Plugin Settings Store Editor">
+        <pages:PluginSettingsStoreEditorPage />
+      </TabItem>
       <TabItem Header="Binding Editor">
         
       </TabItem>
