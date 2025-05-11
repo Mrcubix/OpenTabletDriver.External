@@ -18,10 +18,10 @@
     <UserControl.DataTemplates>
         <datatemplates:DoublePropertyDataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:True}" >
-                <tcontrols:RangedInput Label="{Binding Property.Name}" />
+                <tcontrols:RangedInput />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:False}" >
-                <tcontrols:DoubleInput Label="{Binding Property.Name}" />
+                <tcontrols:DoubleInput />
             </DataTemplate>
         </datatemplates:DoublePropertyDataTemplate>
     </UserControl.DataTemplates>
@@ -44,28 +44,6 @@
                     <Binding Path="Property"
                              Converter="{StaticResource SliderPropertyConverter}"
                              ConverterParameter="{x:Static enums:AttributeModifierType.Maximum}" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style Selector=":is(tcontrols|DoubleInput)">
-            <Setter Property="Unit">
-                <Setter.Value>
-                    <Binding Path="Property.Modifiers"
-                             Converter="{StaticResource ModifierFromEnumConverter}"
-                             ConverterParameter="{x:Static enums:AttributeModifierType.Unit}" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Value">
-                <Setter.Value>
-                    <Binding Path="Setting.Value"
-                             Converter="{StaticResource JTokenConverter}"
-                             ConverterParameter="{Binding Property.Type}" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Precision">
-                <Setter.Value>
-                    <Binding Path="Property.Type"
-                             Converter="{StaticResource PropertyTypeToPrecisionConverter}" />
                 </Setter.Value>
             </Setter>
         </Style>

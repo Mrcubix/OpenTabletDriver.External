@@ -19,7 +19,7 @@
     <UserControl.DataTemplates>
         <datatemplates:PropertySettingPairDataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.Boolean}" >
-                <tcontrols:BooleanInput Label="{Binding Property.Name}" />
+                <tcontrols:BooleanInput />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.Float}" >
                 <extcontrols:DoubleGeneratedControl />
@@ -28,10 +28,10 @@
                 <extcontrols:DoubleGeneratedControl />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.String}">
-                <tcontrols:StringInput Label="{Binding Property.Name}" />
+                <tcontrols:StringInput />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.Array}" >
-                <tcontrols:EnumInput Label="{Binding Property.Name}" />
+                <tcontrols:EnumInput />
             </DataTemplate>
         </datatemplates:PropertySettingPairDataTemplate>
     </UserControl.DataTemplates>
@@ -45,6 +45,7 @@
 
     <UserControl.Styles>
         <Style Selector=":is(tcontrols|DescribedInput)">
+            <Setter Property="Label" Value="{Binding Property.Name}" />
             <Setter Property="Description">
                 <Setter.Value>
                     <Binding Path="Property.Modifiers"
@@ -59,6 +60,28 @@
                     <Binding Path="Setting.Value"
                              Converter="{StaticResource JTokenConverter}"
                              ConverterParameter="{Binding Property.Type}" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style Selector=":is(tcontrols|DoubleInput)">
+            <Setter Property="Unit">
+                <Setter.Value>
+                    <Binding Path="Property.Modifiers"
+                             Converter="{StaticResource ModifierFromEnumConverter}"
+                             ConverterParameter="{x:Static enums:AttributeModifierType.Unit}" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Value">
+                <Setter.Value>
+                    <Binding Path="Setting.Value"
+                             Converter="{StaticResource JTokenConverter}"
+                             ConverterParameter="{Binding Property.Type}" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Precision">
+                <Setter.Value>
+                    <Binding Path="Property.Type"
+                             Converter="{StaticResource PropertyTypeToPrecisionConverter}" />
                 </Setter.Value>
             </Setter>
         </Style>
