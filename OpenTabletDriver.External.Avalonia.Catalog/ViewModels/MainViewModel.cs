@@ -41,6 +41,16 @@ public class MainViewModel : ReactiveObject
     private static readonly SerializableProperty _ExampleIntProperty = new("Example Int", JTokenType.Integer, _ExampleModifiers);
     private static readonly SerializableProperty _ExampleStringProperty = new("Example String", JTokenType.String, _ExampleModifiers);
     private static readonly SerializableValidatedProperty _ExampleValidatedStringProperty = new("Example Validated String", JTokenType.Array, _Choices, _ExampleModifiers);
+    private static readonly SerializableSliderProperty _ExampleSliderProperty = new("Example Slider", JTokenType.Float, _ExampleModifiers)
+    {
+        Minimum = 0,
+        Maximum = 100
+    };
+    private static readonly SerializableSliderProperty _ExampleIntegerSliderProperty = new("Example Integer Slider", JTokenType.Integer, _ExampleModifiers)
+    {
+        Minimum = 0,
+        Maximum = 100
+    };
 
     private static readonly SerializableProperty[] _ExampleProperties =
     [
@@ -48,7 +58,9 @@ public class MainViewModel : ReactiveObject
         _ExampleDoubleProperty,
         _ExampleIntProperty,
         _ExampleStringProperty,
-        _ExampleValidatedStringProperty
+        _ExampleValidatedStringProperty,
+        _ExampleSliderProperty,
+        _ExampleIntegerSliderProperty
     ];
 
     #endregion
@@ -60,6 +72,8 @@ public class MainViewModel : ReactiveObject
     private static readonly SerializablePluginSettings _ExampleIntSetting = new(42, 1, _ExampleIntProperty);
     private static readonly SerializablePluginSettings _ExampleStringSetting = new("Hello World", 1, _ExampleStringProperty);
     private static readonly SerializablePluginSettings _ExampleValidatedStringSetting = new("Choice 1", 1, _ExampleValidatedStringProperty);
+    private static readonly SerializablePluginSettings _ExampleSliderSetting = new(50d, 1, _ExampleSliderProperty);
+    private static readonly SerializablePluginSettings _ExampleIntegerSliderSetting = new(50, 1, _ExampleIntegerSliderProperty);
 
     private static readonly SerializablePluginSettings[] _ExampleSettings =
     [
@@ -67,7 +81,9 @@ public class MainViewModel : ReactiveObject
         _ExampleDoubleSetting,
         _ExampleIntSetting,
         _ExampleStringSetting,
-        _ExampleValidatedStringSetting
+        _ExampleValidatedStringSetting,
+        _ExampleSliderSetting,
+        _ExampleIntegerSliderSetting
     ];
 
     #endregion
@@ -106,6 +122,8 @@ public class MainViewModel : ReactiveObject
     public PropertySettingPair ExampleIntSettingPair { get; set; } = new(_ExampleIntProperty, _ExampleIntSetting);
     public PropertySettingPair ExampleStringSettingPair { get; set; } = new(_ExampleStringProperty, _ExampleStringSetting);
     public PropertySettingPair ExampleValidatedStringSettingPair { get; set; } = new(_ExampleValidatedStringProperty, _ExampleValidatedStringSetting);
+    public PropertySettingPair ExampleSliderSettingPair { get; set; } = new(_ExampleSliderProperty, _ExampleSliderSetting);
+    public PropertySettingPair ExampleIntegerSliderSettingPair { get; set; } = new(_ExampleIntegerSliderProperty, _ExampleIntegerSliderSetting);
 
     #endregion
 

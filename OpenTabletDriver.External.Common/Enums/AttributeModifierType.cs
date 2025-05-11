@@ -5,6 +5,8 @@ namespace OpenTabletDriver.External.Common.Enums
         Description,
         Minimum,
         Maximum,
+        DefaultValue,
+        Precision,
         Tooltip,
         Unit,
     }

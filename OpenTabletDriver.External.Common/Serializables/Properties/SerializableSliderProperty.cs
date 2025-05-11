@@ -11,7 +11,8 @@ namespace OpenTabletDriver.External.Common.Serializables.Properties
 
         public SerializableSliderProperty(string name, JTokenType type, IEnumerable<SerializableAttributeModifier> modifiers) : base(name, type, modifiers) { }
 
-        public int Minimum { get; set; }
-        public int Maximum { get; set; }
+        public double Minimum { get; set; }
+        public double Maximum { get; set; }
+        public double DefaultValue { get; set; }
     }
 }

@@ -5,6 +5,7 @@
              xmlns:converters="using:OpenTabletDriver.External.Avalonia.Converters"
              xmlns:datatemplates="using:OpenTabletDriver.External.Avalonia.DataTemplates"
              xmlns:tcontrols="using:OpenTabletDriver.External.Avalonia.TemplatedControls"
+             xmlns:extcontrols="using:OpenTabletDriver.External.Avalonia.Controls"
              xmlns:interfaces="using:OpenTabletDriver.External.Avalonia.Interfaces"
              xmlns:model="using:OpenTabletDriver.External.Avalonia.Models"
              xmlns:enums="using:OpenTabletDriver.External.Common.Enums"
@@ -21,10 +22,10 @@
                 <tcontrols:BooleanInput Label="{Binding Property.Name}" />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.Float}" >
-                <tcontrols:DoubleInput Label="{Binding Property.Name}" Precision="5" />
+                <extcontrols:DoubleGeneratedControl />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.Integer}" >
-                <tcontrols:DoubleInput Label="{Binding Property.Name}" />
+                <extcontrols:DoubleGeneratedControl />
             </DataTemplate>
             <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:Static newtonsoft:JTokenType.String}">
                 <tcontrols:StringInput Label="{Binding Property.Name}" />
@@ -38,6 +39,7 @@
     <UserControl.Resources>
         <converters:JTokenConverter x:Key="JTokenConverter" />
         <converters:ModifierFromEnumConverter x:Key="ModifierFromEnumConverter" />
+        <converters:PropertyTypeToPrecisionConverter x:Key="PropertyTypeToPrecisionConverter" />
         <converters:ValidatedPropertyConverter x:Key="ValidatedPropertyConverter" />
     </UserControl.Resources>
 
@@ -52,22 +54,6 @@
             </Setter>
         </Style>
         <Style Selector="tcontrols|BooleanInput">
-            <Setter Property="Value">
-                <Setter.Value>
-                    <Binding Path="Setting.Value"
-                             Converter="{StaticResource JTokenConverter}"
-                             ConverterParameter="{Binding Property.Type}" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style Selector="tcontrols|DoubleInput">
-            <Setter Property="Unit">
-                <Setter.Value>
-                    <Binding Path="Property.Modifiers"
-                             Converter="{StaticResource ModifierFromEnumConverter}"
-                             ConverterParameter="{x:Static enums:AttributeModifierType.Unit}" />
-                </Setter.Value>
-            </Setter>
             <Setter Property="Value">
                 <Setter.Value>
                     <Binding Path="Setting.Value"

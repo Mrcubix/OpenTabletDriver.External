@@ -1,15 +1,4 @@
-using System;
-using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
-using Newtonsoft.Json.Linq;
-using OpenTabletDriver.External.Avalonia.Converters;
-using OpenTabletDriver.External.Avalonia.Models;
-using OpenTabletDriver.External.Avalonia.TemplatedControls;
-using OpenTabletDriver.External.Common.Enums;
-using OpenTabletDriver.External.Common.Serializables;
-using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Avalonia.Controls;
 
@@ -45,7 +34,7 @@ public partial class GeneratedControl : UserControl
         }
 
         base.OnDataContextChanged(e);    
-    }*/
+    }
 
     private Control? GetControlForSetting(SerializableProperty property, SerializablePluginSettings pluginSetting)
     {
@@ -125,5 +114,5 @@ public partial class GeneratedControl : UserControl
             default:
                 return control;
         }
-    }
+    }*/
 }

@@ -18,17 +18,18 @@
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto" SharedSizeGroup="INPUT_labelcol" />
+              <ColumnDefinition Width="10" />
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="6*" />
-              <ColumnDefinition Width="64" />
+              <ColumnDefinition Width="Auto" SharedSizeGroup="INPUT_boxcol" />
+              <ColumnDefinition Width="5" />
               <ColumnDefinition Width="Auto" SharedSizeGroup="INPUT_unitcol" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Name="PART_Label" Text="{TemplateBinding Label}" Classes="Label" Grid.Column="0"/>
             <Slider Name="PART_Slider" Grid.Column="2" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" 
-                    Value="{TemplateBinding Value, Mode=TwoWay}" IsEnabled="{TemplateBinding IsReadOnly}"/>
+                    Value="{TemplateBinding Value, Mode=TwoWay}" IsEnabled="{TemplateBinding IsReadOnly, Converter={x:Static BoolConverters.Not}}" />
             <TextBox Name="PART_Input" Classes="HorizontalGridMarginTight" Text="{TemplateBinding Text}" IsReadOnly="{TemplateBinding IsReadOnly}" Grid.Column="3" />
-            <TextBlock Name="PART_Unit" Text="{TemplateBinding Unit}" Grid.Column="4" HorizontalAlignment="Left"
+            <TextBlock Name="PART_Unit" Text="{TemplateBinding Unit}" Grid.Column="5" HorizontalAlignment="Left"
                        IsVisible="{TemplateBinding Unit, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
           </Grid>
         </Border>
