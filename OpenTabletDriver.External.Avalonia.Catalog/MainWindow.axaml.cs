@@ -10,7 +10,9 @@ using OpenTabletDriver.External.Avalonia.Catalog.ViewModels;
 using OpenTabletDriver.External.Avalonia.Dialogs;
 using OpenTabletDriver.External.Avalonia.ViewModels;
 using OpenTabletDriver.External.Avalonia.Views;
+using OpenTabletDriver.External.Common.Enums;
 using OpenTabletDriver.External.Common.Serializables;
+using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Avalonia.Catalog;
 
@@ -21,6 +23,13 @@ public partial class MainWindow : AppMainWindow
     private static readonly BindingEditorDialogViewModel _bindingEditorDialogViewModel = new();
     private static readonly AdvancedBindingEditorDialogViewModel _advancedBindingEditorDialogViewModel = new();
     private static readonly ObservableCollection<SerializablePlugin> _plugins = new();
+    private static readonly string[] _bindingValues = new[] { "a", "b", "c" };
+    private static readonly string[] _mouseButtonValues = new[] { "Left", "Middle", "Right", "Backward", "Forward" };
+    private static readonly IEnumerable<SerializableAttributeModifier> _exampleModifiers = new[]
+    {
+        new SerializableAttributeModifier(AttributeModifierType.Tooltip, "Tooltip Here"),
+        new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
+    };
     private static bool _isEditorDialogOpen = false;
 
     public MainWindow()
@@ -33,7 +42,24 @@ public partial class MainWindow : AppMainWindow
             PluginName = "Plugin X",
             FullName = "yes",
             Identifier = 1,
-            ValidProperties = new string[] { "a", "b" }
+            Type = PluginType.Binding,
+            Properties = new()
+            {
+                new SerializableValidatedProperty("Validated String", JTokenType.Array, _bindingValues, _exampleModifiers),
+                new SerializableProperty("Example Double", JTokenType.Float, _exampleModifiers),
+                new SerializableProperty("Example String", JTokenType.String, _exampleModifiers)
+            }
+        });
+        _plugins.Add(new SerializablePlugin()
+        {
+            PluginName = "Mouse Button Binding",
+            FullName = "OpenTabletDriver.Desktop.Binding.MouseBinding",
+            Identifier = 2,
+            Type = PluginType.Binding,
+            Properties = new()
+            {
+                new SerializableValidatedProperty("Button", JTokenType.Array, _mouseButtonValues, _exampleModifiers)
+            }
         });
     }
 
@@ -53,6 +79,13 @@ public partial class MainWindow : AppMainWindow
         {
             _isEditorDialogOpen = true;
 
+            // Now we set the view model's properties
+
+            var bindingPlugins = _plugins.Where(p => p.Type == PluginType.Binding).ToList();
+            var selectedPlugin = bindingPlugins.FirstOrDefault(p => p.Identifier == e.Store?.Identifier);
+
+            _bindingEditorDialogViewModel.Store = e.Store;
+
             // Now we setup the dialog
 
             var dialog = new BindingEditorDialog()
@@ -65,30 +98,8 @@ public partial class MainWindow : AppMainWindow
             dialog.AttachDevTools();
 #endif
 
-            // Now we show the dialog
-
-            var res = await dialog.ShowDialog<SerializablePluginSettings>(this);
-
-            _isEditorDialogOpen = false;
-
-            // We handle the result
-
-            // The dialog was closed or the cancel button was pressed
-            if (res == null)
-                return;
-
-            // The user selected "Clear"
-            if (res.Identifier == -1 || res.Value == null || 
-               (res.Value.Type != JTokenType.Null && res.Value.ToObject<string>() == "None"))
-            {
-                e.PluginProperty = null;
-                e.Content = "";
-            }
-            else
-            {
-                e.PluginProperty = res;
-                e.Content = res.Value.ToString();
-            }
+            // Now we show & handle the dialog
+            await HandleBindingEditorDialog(dialog, e);
         }
     }
 
@@ -100,24 +111,22 @@ public partial class MainWindow : AppMainWindow
 
             // Now we set the view model's properties
 
-            var types = _plugins.Select(p => p.PluginName ?? p.FullName ?? "Unknown").ToList();
-
-            var currentPlugin = _plugins.FirstOrDefault(p => p.Identifier == e.PluginProperty?.Identifier);
-            var selectedType = currentPlugin?.PluginName ?? currentPlugin?.FullName ?? "Unknown";
+            var bindingPlugins = _plugins.Where(p => p.Type == PluginType.Binding).ToList();
+            var selectedPlugin = bindingPlugins.FirstOrDefault(p => p.Identifier == e.Store?.Identifier);
             
-            // TODO : Replace single string property box with the equivalent of PluginSettingStoreEditor
-            var validProperties = currentPlugin?.ValidProperties ?? new string[0];
-            var selectedProperty = e.PluginProperty?.Value?.ToObject<string>() ?? "";
+            var settingsStoreEditor = new PluginSettingStoreEditorViewModel()
+            {
+                Properties = selectedPlugin?.Properties ?? [],
+                Store = e.Store
+            };
 
             // Now we set the view model's properties
 
-            _advancedBindingEditorDialogViewModel.Types = new ObservableCollection<string>(types);
-            _advancedBindingEditorDialogViewModel.SelectedType = selectedType;
-            _advancedBindingEditorDialogViewModel.ValidProperties = new ObservableCollection<string>(validProperties);
-            _advancedBindingEditorDialogViewModel.SelectedProperty = selectedProperty;
+            _advancedBindingEditorDialogViewModel.BindingTypes = [.. bindingPlugins];
+            _advancedBindingEditorDialogViewModel.SelectedBindingType = selectedPlugin;
+            _advancedBindingEditorDialogViewModel.SettingStore = settingsStoreEditor;
 
             // Now we setup the dialog
-
             var dialog = new AdvancedBindingEditorDialog()
             {
                 DataContext = _advancedBindingEditorDialogViewModel,
@@ -128,30 +137,23 @@ public partial class MainWindow : AppMainWindow
             dialog.AttachDevTools();
 #endif
 
-            // Now we show the dialog
-
-            var res = await dialog.ShowDialog<SerializablePluginSettings>(this);
-
-            _isEditorDialogOpen = false;
-
-            // We handle the result
-
-            // The dialog was closed or the cancel button was pressed
-            if (res == null)
-                return;
-
-            // The user selected "Clear"
-            if (res.Identifier == -1 || res.Value == null || 
-               (res.Value.Type != JTokenType.Null && res.Value.ToObject<string>() == "None"))
-            {
-                e.PluginProperty = null;
-                e.Content = "";
-            }
-            else
-            {
-                e.PluginProperty = res;
-                e.Content = res.Value.ToString();
-            }
+            // Now we show & handle the dialog
+            await HandleBindingEditorDialog(dialog, e);
         }
+    }
+
+    private async Task HandleBindingEditorDialog(Window dialog, BindingDisplayViewModel e)
+    {
+        var res = await dialog.ShowDialog<SerializablePluginSettingsStore>(this);
+
+        _isEditorDialogOpen = false;
+
+        // If the result is the same as before or null, we don't need to do anything
+        if (res == e.Store)
+            return;
+
+        // We handle the result
+        e.Store = res;
+        e.Content = res?.GetHumanReadableString();
     }
 }

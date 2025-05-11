@@ -93,16 +93,15 @@ public class MainViewModel : ReactiveObject
     public MainViewModel() 
     {
         ExamplePluginSettingsStoreEditor.Store = ExamplePluginSettingsStore;
-        ExamplePluginSettingsStoreEditor.Properties = _ExampleProperties;
     }
 
     #region Bindings
 
-    public BindingDisplayViewModel LeftMouseClick { get; set; } = new("Tip Button", "Mouse Left Click", null);
-    public BindingDisplayViewModel RightMouseClick { get; set; } = new("Side Button", "Mouse Right Click", null);
+    public BindingDisplayViewModel LeftMouseClick { get; set; } = new("Tip Button", "Mouse Left Click", null!);
+    public BindingDisplayViewModel RightMouseClick { get; set; } = new("Side Button", "Mouse Right Click", null!);
 
-    public BindingDisplayViewModel AKeyboardKey { get; set; } = new("Auxiliary Button 1", "Key Binding A", null);
-    public BindingDisplayViewModel ZKeyboardKey { get; set; } = new("Auxiliary Button 2", "Key Binding Z", null);
+    public BindingDisplayViewModel AKeyboardKey { get; set; } = new("Auxiliary Button 1", "Key Binding A", null!);
+    public BindingDisplayViewModel ZKeyboardKey { get; set; } = new("Auxiliary Button 2", "Key Binding Z", null!);
 
     #endregion
 
@@ -137,7 +136,10 @@ public class MainViewModel : ReactiveObject
         Settings = [.. _ExampleSettings]
     };
 
-    public PluginSettingStoreEditorViewModel ExamplePluginSettingsStoreEditor { get; set; } = new();
+    public PluginSettingStoreEditorViewModel ExamplePluginSettingsStoreEditor { get; set; } = new()
+    {
+        Properties = new(_ExampleProperties)
+    };
 
     #endregion
 

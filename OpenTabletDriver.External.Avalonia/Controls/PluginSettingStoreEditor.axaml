@@ -19,7 +19,7 @@
     </UserControl.Styles>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.IsSharedSizeScope="True" Margin="0, 8">
-        <ItemsControl ItemsSource="{Binding PropertySettingPairs}" Margin="10">
+        <ItemsControl ItemsSource="{Binding PropertySettingPairs}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <controls:GeneratedControl />

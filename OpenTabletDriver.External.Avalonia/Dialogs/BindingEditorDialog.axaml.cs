@@ -12,6 +12,7 @@ namespace OpenTabletDriver.External.Avalonia.Dialogs;
 
 public partial class BindingEditorDialog : Window
 {
+    private SerializablePluginSettingsStore? _previousStore = null;
     protected ObservableCollection<SerializablePlugin> _plugins = null!;
 
     public BindingEditorDialog()
@@ -45,54 +46,26 @@ public partial class BindingEditorDialog : Window
         base.OnOpened(e);
     }
 
+    protected override void OnDataContextBeginUpdate()
+    {
+        base.OnDataContextBeginUpdate();
+
+        if (DataContext is BindingEditorDialogViewModel vm)
+        {
+            _previousStore = null;
+            vm.ClearRequested -= OnClearRequested;
+        }
+    }
+
     protected override void OnDataContextChanged(EventArgs e)
     {
         base.OnDataContextChanged(e);
 
         if (DataContext is BindingEditorDialogViewModel vm)
         {
-            vm.CloseRequested += (s, e) => Close(new SerializablePluginSettings()
-            {
-                Identifier = KeyBindingPlugin?.Identifier ?? -1,
-                Value = "None"
-            });
+            _previousStore = vm.Store;
+            vm.ClearRequested += OnClearRequested;
         }
-    }
-
-    protected override void OnKeyDown(KeyEventArgs e)
-    {
-        if (DataContext is BindingEditorDialogViewModel vm)
-        {
-            if (e.Key == Key.Escape)
-            {
-                Close(null);
-            }
-            else
-            {
-                Close(new SerializablePluginSettings()
-                {
-                    Identifier = KeyBindingPlugin?.Identifier ?? -1,
-                    Value = e.Key.ToString()
-                });
-            }
-        }
-
-        base.OnKeyDown(e);
-    }
-
-    protected override void OnPointerPressed(PointerPressedEventArgs e)
-    {
-        if (DataContext is BindingEditorDialogViewModel &&
-            e.Pointer.Type == PointerType.Mouse)
-        {
-            Close(new SerializablePluginSettings()
-            {
-                Identifier = MouseBindingPlugin?.Identifier ?? -1,
-                Value = ParseMouseClick(e)
-            });
-        }
-
-        base.OnPointerPressed(e);
     }
 
     private string ParseMouseClick(PointerPressedEventArgs e)
@@ -111,5 +84,76 @@ public partial class BindingEditorDialog : Window
             return "Forward";
         else
             return "None";
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (DataContext is BindingEditorDialogViewModel vm)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close(_previousStore);
+            }
+            else
+            {
+                Close(new SerializablePluginSettingsStore()
+                {
+                    PluginName = "Key Binding",
+                    FullName = "OpenTabletDriver.Desktop.Binding.KeyBinding",
+                    Identifier = KeyBindingPlugin?.Identifier ?? -1,
+                    Settings = [
+                        new SerializablePluginSettings()
+                        {
+                            Identifier = KeyBindingPlugin?.Identifier ?? -1,
+                            Property = "Key",
+                            Value = e.Key.ToString()
+                        }
+                    ]
+                });
+            }
+        }
+
+        base.OnKeyDown(e);
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        if (DataContext is BindingEditorDialogViewModel &&
+            e.Pointer.Type == PointerType.Mouse)
+        {
+            Close(new SerializablePluginSettingsStore()
+            {
+                PluginName = "Mouse Button Binding",
+                FullName = "OpenTabletDriver.Desktop.Binding.MouseBinding",
+                Identifier = MouseBindingPlugin?.Identifier ?? -1,
+                Settings = [
+                    new SerializablePluginSettings()
+                    {
+                        Identifier = MouseBindingPlugin?.Identifier ?? -1,
+                        Property = "Button",
+                        Value = ParseMouseClick(e)
+                    }
+                ]
+            });
+        }
+
+        base.OnPointerPressed(e);
+    }
+
+    // TODO : Get rid of this mess & use a future DialogResult Property once avalonia have fixed their shit
+    protected override void OnClosing(WindowClosingEventArgs e)
+    {
+        if (!e.IsProgrammatic)
+        {
+            e.Cancel = true;
+            Close(_previousStore);
+        }
+
+        base.OnClosing(e);
+    }
+
+    private void OnClearRequested(object? sender, EventArgs e)
+    {
+        Close(null);
     }
 }

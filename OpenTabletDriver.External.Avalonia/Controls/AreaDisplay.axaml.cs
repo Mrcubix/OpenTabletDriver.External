@@ -102,8 +102,12 @@ public partial class AreaDisplay : UserControl
             foreach (var border in VIEW_AreaCanvas.Children.OfType<Border>())
             {
                 var mapping = (Area)border.Tag!;
-                SetSize(border, mapping, _scale);
-                SetPosition(border, mapping, _scale);
+
+                if (_scale != 0)
+                {
+                    SetSize(border, mapping, _scale);
+                    SetPosition(border, mapping, _scale);
+                }
             }
         }
 

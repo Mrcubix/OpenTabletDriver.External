@@ -9,14 +9,13 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 public partial class BindingEditorDialogViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private SerializablePluginSettings? _property = null!;
+    private SerializablePluginSettingsStore? _store = null!;
 
-    public event EventHandler CloseRequested = null!;
+    public event EventHandler ClearRequested = null!;
 
     public void Clear()
     {
-        Property = null!;
-
-        CloseRequested?.Invoke(this, null!);
+        Store = null!;
+        ClearRequested?.Invoke(this, null!);
     }
 }

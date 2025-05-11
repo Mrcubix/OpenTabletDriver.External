@@ -23,25 +23,25 @@ public partial class BindingDisplayViewModel : ViewModelBase
     private string? _content;
 
     [ObservableProperty]
-    private SerializablePluginSettings? _pluginProperty;
+    private SerializablePluginSettingsStore? _store;
 
     public BindingDisplayViewModel()
     {
         Description = "PlaceHolder";
         Content = "";
-        PluginProperty = null;
+        Store = null;
     }
 
-    public BindingDisplayViewModel(SerializablePluginSettings? pluginProperty)
+    public BindingDisplayViewModel(SerializablePluginSettingsStore store)
     {
-        PluginProperty = pluginProperty;
+        Store = store;
     }
 
-    public BindingDisplayViewModel(string description, string content, SerializablePluginSettings? pluginProperty)
+    public BindingDisplayViewModel(string description, string content, SerializablePluginSettingsStore store)
     {
         Description = description;
         Content = content;
-        PluginProperty = pluginProperty;
+        Store = store;
     }
 
     public event EventHandler<BindingDisplayViewModel>? ShowBindingEditorDialogRequested;

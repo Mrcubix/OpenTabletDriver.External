@@ -1,33 +1,27 @@
 using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using OpenTabletDriver.External.Common.Serializables;
 
 namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 public partial class AdvancedBindingEditorDialogViewModel : BindingEditorDialogViewModel
 {
     [ObservableProperty]
-    private ObservableCollection<string> _types = null!;
+    private ObservableCollection<SerializablePlugin> _bindingTypes = [];
 
     [ObservableProperty]
-    private string _selectedType = null!;
+    private SerializablePlugin? _selectedBindingType = null;
 
     [ObservableProperty]
-    private ObservableCollection<string> _validProperties = null!;
+    private PluginSettingStoreEditorViewModel? _settingStore = new();
 
-    [ObservableProperty]
-    private string _selectedProperty = null!;
+    public AdvancedBindingEditorDialogViewModel() {}
 
-    public AdvancedBindingEditorDialogViewModel()
+    public AdvancedBindingEditorDialogViewModel(ObservableCollection<SerializablePlugin> types, PluginSettingStoreEditorViewModel settingStore)
     {
-        Types = new ObservableCollection<string>();
-        ValidProperties = new ObservableCollection<string>();
-    }
-
-    public AdvancedBindingEditorDialogViewModel(ObservableCollection<string> types, ObservableCollection<string> validProperties)
-    {
-        Types = types;
-        ValidProperties = validProperties;
+        BindingTypes = types;
+        SettingStore = settingStore;
     }
 
     public event EventHandler ApplyRequested = null!;
