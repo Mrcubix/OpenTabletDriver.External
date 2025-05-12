@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json.Linq;
+using OpenTabletDriver.External.Avalonia.Extensions;
 using OpenTabletDriver.External.Avalonia.Models;
 using OpenTabletDriver.External.Avalonia.ViewModels;
 using OpenTabletDriver.External.Common.Enums;
 using OpenTabletDriver.External.Common.Serializables;
 using OpenTabletDriver.External.Common.Serializables.Properties;
-using ReactiveUI;
 
 namespace OpenTabletDriver.External.Avalonia.Catalog.ViewModels;
 
-public class MainViewModel : ReactiveObject
+public partial class MainViewModel : ObservableObject
 {
     #region Constants
 
@@ -24,29 +26,31 @@ public class MainViewModel : ReactiveObject
 
     #region Properties Attributes Values
 
-    private static readonly IEnumerable<string> _Choices = new[] { "Choice 1", "Choice 2", "Choice 3" };
+    private static readonly string[] _choices = ["Choice 1", "Choice 2", "Choice 3"];
+    private static readonly string[] _bindingValues = ["a", "b", "c"];
+    private static readonly string[] _mouseButtonValues = ["Left", "Middle", "Right", "Backward", "Forward"];
 
-    private static readonly IEnumerable<SerializableAttributeModifier> _ExampleModifiers = new[]
-    {
+    private static readonly IEnumerable<SerializableAttributeModifier> _exampleModifiers =
+    [
         new SerializableAttributeModifier(AttributeModifierType.Tooltip, "Tooltip Here"),
         new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
-    };
+    ];
 
     #endregion
 
     #region Properties
 
-    private static readonly SerializableProperty _ExampleBoolProperty = new("Example Bool", JTokenType.Boolean, _ExampleModifiers);
-    private static readonly SerializableProperty _ExampleDoubleProperty = new("Example Float", JTokenType.Float, _ExampleModifiers);
-    private static readonly SerializableProperty _ExampleIntProperty = new("Example Int", JTokenType.Integer, _ExampleModifiers);
-    private static readonly SerializableProperty _ExampleStringProperty = new("Example String", JTokenType.String, _ExampleModifiers);
-    private static readonly SerializableValidatedProperty _ExampleValidatedStringProperty = new("Example Validated String", JTokenType.Array, _Choices, _ExampleModifiers);
-    private static readonly SerializableSliderProperty _ExampleSliderProperty = new("Example Slider", JTokenType.Float, _ExampleModifiers)
+    private static readonly SerializableProperty _ExampleBoolProperty = new("Example Bool", JTokenType.Boolean, _exampleModifiers);
+    private static readonly SerializableProperty _ExampleDoubleProperty = new("Example Float", JTokenType.Float, _exampleModifiers);
+    private static readonly SerializableProperty _ExampleIntProperty = new("Example Int", JTokenType.Integer, _exampleModifiers);
+    private static readonly SerializableProperty _ExampleStringProperty = new("Example String", JTokenType.String, _exampleModifiers);
+    private static readonly SerializableValidatedProperty _ExampleValidatedStringProperty = new("Example Validated String", JTokenType.Array, _choices, _exampleModifiers);
+    private static readonly SerializableSliderProperty _ExampleSliderProperty = new("Example Slider", JTokenType.Float, _exampleModifiers)
     {
         Minimum = 0,
         Maximum = 100
     };
-    private static readonly SerializableSliderProperty _ExampleIntegerSliderProperty = new("Example Integer Slider", JTokenType.Integer, _ExampleModifiers)
+    private static readonly SerializableSliderProperty _ExampleIntegerSliderProperty = new("Example Integer Slider", JTokenType.Integer, _exampleModifiers)
     {
         Minimum = 0,
         Maximum = 100
@@ -71,7 +75,7 @@ public class MainViewModel : ReactiveObject
     private static readonly SerializablePluginSettings _ExampleDoubleSetting = new(0.5d, 1, _ExampleDoubleProperty);
     private static readonly SerializablePluginSettings _ExampleIntSetting = new(42, 1, _ExampleIntProperty);
     private static readonly SerializablePluginSettings _ExampleStringSetting = new("Hello World", 1, _ExampleStringProperty);
-    private static readonly SerializablePluginSettings _ExampleValidatedStringSetting = new("Choice 1", 1, _ExampleValidatedStringProperty);
+    private static readonly SerializablePluginSettings _ExampleValidatedStringSetting = new("Choice 2", 1, _ExampleValidatedStringProperty);
     private static readonly SerializablePluginSettings _ExampleSliderSetting = new(50d, 1, _ExampleSliderProperty);
     private static readonly SerializablePluginSettings _ExampleIntegerSliderSetting = new(50, 1, _ExampleIntegerSliderProperty);
 
@@ -90,10 +94,44 @@ public class MainViewModel : ReactiveObject
 
     #endregion
 
+    [ObservableProperty]
+    private ObservableCollection<SerializablePlugin> _plugins = new();
+
     public MainViewModel() 
     {
         ExamplePluginSettingsStoreEditor.Store = ExamplePluginSettingsStore;
+
+        Plugins.AddRange(
+        [
+            new SerializablePlugin()
+            {
+                PluginName = "Plugin X",
+                FullName = "yes",
+                Identifier = 1,
+                Type = PluginType.Binding,
+                Properties = new()
+                {
+                    new SerializableValidatedProperty("Validated String", JTokenType.Array, _bindingValues, _exampleModifiers),
+                    new SerializableProperty("Example Double", JTokenType.Float, _exampleModifiers),
+                    new SerializableProperty("Example String", JTokenType.String, _exampleModifiers)
+                }
+            },
+            new SerializablePlugin()
+            {
+                PluginName = "Mouse Button Binding",
+                FullName = "OpenTabletDriver.Desktop.Binding.MouseBinding",
+                Identifier = 2,
+                Type = PluginType.Binding,
+                Properties = new()
+                {
+                    new SerializableValidatedProperty("Button", JTokenType.Array, _mouseButtonValues, _exampleModifiers)
+                }
+            }
+        ]);
     }
+
+    
+
 
     #region Bindings
 

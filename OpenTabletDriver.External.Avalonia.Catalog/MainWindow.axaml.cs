@@ -1,18 +1,17 @@
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Newtonsoft.Json.Linq;
 using OpenTabletDriver.External.Avalonia.Catalog.ViewModels;
 using OpenTabletDriver.External.Avalonia.Dialogs;
+using OpenTabletDriver.External.Avalonia.Extensions;
 using OpenTabletDriver.External.Avalonia.ViewModels;
 using OpenTabletDriver.External.Avalonia.Views;
 using OpenTabletDriver.External.Common.Enums;
 using OpenTabletDriver.External.Common.Serializables;
-using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Avalonia.Catalog;
 
@@ -20,47 +19,23 @@ namespace OpenTabletDriver.External.Avalonia.Catalog;
 
 public partial class MainWindow : AppMainWindow
 {
-    private static readonly BindingEditorDialogViewModel _bindingEditorDialogViewModel = new();
-    private static readonly AdvancedBindingEditorDialogViewModel _advancedBindingEditorDialogViewModel = new();
     private static readonly ObservableCollection<SerializablePlugin> _plugins = new();
-    private static readonly string[] _bindingValues = new[] { "a", "b", "c" };
-    private static readonly string[] _mouseButtonValues = new[] { "Left", "Middle", "Right", "Backward", "Forward" };
-    private static readonly IEnumerable<SerializableAttributeModifier> _exampleModifiers = new[]
-    {
-        new SerializableAttributeModifier(AttributeModifierType.Tooltip, "Tooltip Here"),
-        new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
-    };
     private static bool _isEditorDialogOpen = false;
 
     public MainWindow()
     {
         InitializeComponent();
+    }
 
-        _plugins.Add(new SerializablePlugin());
-        _plugins.Add(new SerializablePlugin()
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        if (DataContext is MainViewModel vm)
         {
-            PluginName = "Plugin X",
-            FullName = "yes",
-            Identifier = 1,
-            Type = PluginType.Binding,
-            Properties = new()
-            {
-                new SerializableValidatedProperty("Validated String", JTokenType.Array, _bindingValues, _exampleModifiers),
-                new SerializableProperty("Example Double", JTokenType.Float, _exampleModifiers),
-                new SerializableProperty("Example String", JTokenType.String, _exampleModifiers)
-            }
-        });
-        _plugins.Add(new SerializablePlugin()
-        {
-            PluginName = "Mouse Button Binding",
-            FullName = "OpenTabletDriver.Desktop.Binding.MouseBinding",
-            Identifier = 2,
-            Type = PluginType.Binding,
-            Properties = new()
-            {
-                new SerializableValidatedProperty("Button", JTokenType.Array, _mouseButtonValues, _exampleModifiers)
-            }
-        });
+            _plugins.Clear();
+            _plugins.AddRange(vm.Plugins);
+        }
+
+        base.OnDataContextChanged(e);
     }
 
     public override void ShowBindingEditorDialog(object? sender, BindingDisplayViewModel e)
@@ -84,14 +59,16 @@ public partial class MainWindow : AppMainWindow
             var bindingPlugins = _plugins.Where(p => p.Type == PluginType.Binding).ToList();
             var selectedPlugin = bindingPlugins.FirstOrDefault(p => p.Identifier == e.Store?.Identifier);
 
-            _bindingEditorDialogViewModel.Store = e.Store;
+            var bindingEditorDialogViewModel = new BindingEditorDialogViewModel
+            {
+                Store = e.Store
+            };
 
             // Now we setup the dialog
-
             var dialog = new BindingEditorDialog()
             {
                 Plugins = _plugins,
-                DataContext = _bindingEditorDialogViewModel
+                DataContext = bindingEditorDialogViewModel
             };
 
 #if DEBUG
@@ -122,14 +99,15 @@ public partial class MainWindow : AppMainWindow
 
             // Now we set the view model's properties
 
-            _advancedBindingEditorDialogViewModel.BindingTypes = [.. bindingPlugins];
-            _advancedBindingEditorDialogViewModel.SelectedBindingType = selectedPlugin;
-            _advancedBindingEditorDialogViewModel.SettingStore = settingsStoreEditor;
+            var advancedBindingEditorDialogViewModel = new AdvancedBindingEditorDialogViewModel([.. bindingPlugins], settingsStoreEditor)
+            {
+                SelectedBindingType = selectedPlugin,
+            };
 
             // Now we setup the dialog
             var dialog = new AdvancedBindingEditorDialog()
             {
-                DataContext = _advancedBindingEditorDialogViewModel,
+                DataContext = advancedBindingEditorDialogViewModel,
                 Plugins = _plugins
             };
 
@@ -155,5 +133,11 @@ public partial class MainWindow : AppMainWindow
         // We handle the result
         e.Store = res;
         e.Content = res?.GetHumanReadableString();
+
+        // If we don't dispose it & GC it, Avalonia will randomly convert 
+        // Selected values from ValidatedProperties to null for some reason
+        // TODO : Get rid of this when a better solution is found
+        if (dialog.DataContext is IDisposable disposable)
+            disposable.Dispose();
     }
 }

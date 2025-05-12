@@ -6,7 +6,7 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 #nullable enable
 
-public partial class BindingDisplayViewModel : ViewModelBase
+public partial class BindingDisplayViewModel : ViewModelBase, IDisposable
 {
     /// <summary>
     ///   The description of the binding. <br>
@@ -55,5 +55,10 @@ public partial class BindingDisplayViewModel : ViewModelBase
     public void ShowAdvancedBindingEditorDialog()
     {
         ShowAdvancedBindingEditorDialogRequested?.Invoke(this, this);
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
     }
 }

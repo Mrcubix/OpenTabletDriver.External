@@ -18,8 +18,9 @@
             </Grid.ColumnDefinitions>
             
             <TextBlock Text="{TemplateBinding Label}" Classes="Label" Grid.Column="0" />
-            <ComboBox Name="PART_Input" SelectedItem="{TemplateBinding SelectedItem}" ItemsSource="{TemplateBinding ItemsSource}" 
-                      IsEnabled="{TemplateBinding IsReadOnly, Converter={x:Static BoolConverters.Not}}" Grid.Column="2" Margin="10,0" />
+            <ComboBox Name="PART_Input" ItemsSource="{TemplateBinding ItemsSource}" SelectedItem="{TemplateBinding SelectedItem}"
+                      SelectedIndex="{TemplateBinding SelectedIndex}" IsEnabled="{TemplateBinding IsReadOnly, Converter={x:Static BoolConverters.Not}}" 
+                      Grid.Column="2" Margin="10,0" />
           </Grid>
         </Border>
       </ControlTemplate>

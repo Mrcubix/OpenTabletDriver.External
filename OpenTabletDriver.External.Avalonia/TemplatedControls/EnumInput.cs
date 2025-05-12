@@ -3,6 +3,7 @@ using System.Collections;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 
 namespace OpenTabletDriver.External.Avalonia.TemplatedControls;
@@ -17,7 +18,8 @@ namespace OpenTabletDriver.External.Avalonia.TemplatedControls;
 public class EnumInput : DescribedInput
 {
     private object? _selectedItem;
-    private IEnumerable? _itemsSource;
+    private int? _selectedIndex;
+    private IList? _itemsSource;
 
     public static readonly DirectProperty<EnumInput, object?> SelectedItemProperty =
         AvaloniaProperty.RegisterDirect<EnumInput, object?>(
@@ -27,8 +29,16 @@ public class EnumInput : DescribedInput
             defaultBindingMode: BindingMode.TwoWay
         );
 
-    public static readonly DirectProperty<EnumInput, IEnumerable?> ItemsSourceProperty =
-        AvaloniaProperty.RegisterDirect<EnumInput, IEnumerable?>(
+    public static readonly DirectProperty<EnumInput, int?> SelectedIndexProperty =
+        AvaloniaProperty.RegisterDirect<EnumInput, int?>(
+            nameof(SelectedIndex),
+            o => o.SelectedIndex,
+            (o, v) => o.SelectedIndex = v,
+            defaultBindingMode: BindingMode.TwoWay
+        );
+
+    public static readonly DirectProperty<EnumInput, IList?> ItemsSourceProperty =
+        AvaloniaProperty.RegisterDirect<EnumInput, IList?>(
             nameof(ItemsSource),
             o => o.ItemsSource,
             (o, v) => o.ItemsSource = v
@@ -40,9 +50,31 @@ public class EnumInput : DescribedInput
         set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
     }
 
-    public IEnumerable? ItemsSource
+    public int? SelectedIndex
+    {
+        get => _selectedIndex;
+        set => SetAndRaise(SelectedIndexProperty, ref _selectedIndex, value);
+    }
+
+    public IList? ItemsSource
     {
         get => _itemsSource;
         set => SetAndRaise(ItemsSourceProperty, ref _itemsSource, value);
+    }
+
+    // TODO : Get rid of this, Currently a Workaround for a Binding Issue in ComboBox
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        var comboBox = e.NameScope.Get<ComboBox>("PART_Input");
+
+        comboBox.SelectedIndex = ItemsSource?.IndexOf(SelectedItem) ?? -1;
+
+        comboBox.SelectionChanged += (sender, args) => 
+        {
+            SelectedItem = comboBox.SelectedItem;
+            SelectedIndex = comboBox.SelectedIndex;
+        };
+
+        base.OnApplyTemplate(e);
     }
 }

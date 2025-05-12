@@ -10,12 +10,12 @@ namespace OpenTabletDriver.External.Common.Serializables.Properties
         [JsonConstructor]
         private SerializableValidatedProperty() { }
 
-        public SerializableValidatedProperty(string name, JTokenType type, System.Collections.IEnumerable values, IEnumerable<SerializableAttributeModifier> modifiers) 
+        public SerializableValidatedProperty(string name, JTokenType type, System.Collections.IList values, IEnumerable<SerializableAttributeModifier> modifiers) 
             : base(name, type, modifiers)
         {
             Values = values;
         }
 
-        public System.Collections.IEnumerable Values { get; set; } = Array.Empty<object>();
+        public System.Collections.IList Values { get; set; } = Array.Empty<object>();
     }
 }
