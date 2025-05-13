@@ -19,7 +19,8 @@ namespace OpenTabletDriver.External.Avalonia.Catalog;
 
 public partial class MainWindow : AppMainWindow
 {
-    private static readonly ObservableCollection<SerializablePlugin> _plugins = new();
+    private static readonly BindingEditorDialogViewModel _bindingEditorDialogViewModel = new();
+    private static readonly ObservableCollection<SerializablePlugin> _plugins = [];
     private static bool _isEditorDialogOpen = false;
 
     public MainWindow()
@@ -59,16 +60,13 @@ public partial class MainWindow : AppMainWindow
             var bindingPlugins = _plugins.Where(p => p.Type == PluginType.Binding).ToList();
             var selectedPlugin = bindingPlugins.FirstOrDefault(p => p.Identifier == e.Store?.Identifier);
 
-            var bindingEditorDialogViewModel = new BindingEditorDialogViewModel
-            {
-                Store = e.Store
-            };
+            _bindingEditorDialogViewModel.Store = e.Store;
 
             // Now we setup the dialog
             var dialog = new BindingEditorDialog()
             {
                 Plugins = _plugins,
-                DataContext = bindingEditorDialogViewModel
+                DataContext = _bindingEditorDialogViewModel
             };
 
 #if DEBUG
@@ -126,18 +124,8 @@ public partial class MainWindow : AppMainWindow
 
         _isEditorDialogOpen = false;
 
-        // If the result is the same as before or null, we don't need to do anything
-        if (res == e.Store)
-            return;
-
         // We handle the result
         e.Store = res;
         e.Content = res?.GetHumanReadableString();
-
-        // If we don't dispose it & GC it, Avalonia will randomly convert 
-        // Selected values from ValidatedProperties to null for some reason
-        // TODO : Get rid of this when a better solution is found
-        if (dialog.DataContext is IDisposable disposable)
-            disposable.Dispose();
     }
 }

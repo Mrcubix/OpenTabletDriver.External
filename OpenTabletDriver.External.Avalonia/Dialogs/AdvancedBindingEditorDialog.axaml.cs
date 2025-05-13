@@ -60,6 +60,7 @@ public partial class AdvancedBindingEditorDialog : Window
     }
 
     // TODO : Get rid of this mess & use a future DialogResult Property once avalonia have fixed their shit
+    // return the previous store, effectively canceling any changes
     protected override void OnClosing(WindowClosingEventArgs e)
     {
         if (!e.IsProgrammatic)
@@ -92,27 +93,15 @@ public partial class AdvancedBindingEditorDialog : Window
             var selectedType = (SerializablePlugin?)(TypesComboBox.SelectedItem);
             var plugin = Plugins.FirstOrDefault(p => p == selectedType);
 
+            // Selected plugin has changed, we need to generate new controls
+            // We still keep the _previousStore in case the user wants to cancel.
             if (plugin != null && plugin != _previousPlugin)
             {
-                if (vm.SettingStore == null)
+                vm.SettingStore = new PluginSettingStoreEditorViewModel()
                 {
-                    // Create a new store with the plugin's properties
-                    vm.SettingStore = new PluginSettingStoreEditorViewModel()
-                    {
-                        Properties = plugin.Properties,
-                        Store = new SerializablePluginSettingsStore(plugin)
-                    };
-                }
-                else
-                {
-                    // Update the existing store
-                    vm.SettingStore.Properties ??= [];
-
-                    // Replacing the collection would result in binding issues
-                    vm.SettingStore.Properties?.Clear(); 
-                    vm.SettingStore.Properties?.AddRange(plugin.Properties);
-                    vm.SettingStore.Store = new SerializablePluginSettingsStore(plugin);
-                }
+                    Properties = plugin.Properties,
+                    Store = new SerializablePluginSettingsStore(plugin)
+                };
             }
 
             _previousPlugin = plugin;

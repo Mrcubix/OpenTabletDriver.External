@@ -18,7 +18,7 @@ namespace OpenTabletDriver.External.Avalonia.TemplatedControls;
 public class EnumInput : DescribedInput
 {
     private object? _selectedItem;
-    private int? _selectedIndex;
+    private int _selectedIndex = -1;
     private IList? _itemsSource;
 
     public static readonly DirectProperty<EnumInput, object?> SelectedItemProperty =
@@ -29,8 +29,8 @@ public class EnumInput : DescribedInput
             defaultBindingMode: BindingMode.TwoWay
         );
 
-    public static readonly DirectProperty<EnumInput, int?> SelectedIndexProperty =
-        AvaloniaProperty.RegisterDirect<EnumInput, int?>(
+    public static readonly DirectProperty<EnumInput, int> SelectedIndexProperty =
+        AvaloniaProperty.RegisterDirect<EnumInput, int>(
             nameof(SelectedIndex),
             o => o.SelectedIndex,
             (o, v) => o.SelectedIndex = v,
@@ -50,7 +50,7 @@ public class EnumInput : DescribedInput
         set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
     }
 
-    public int? SelectedIndex
+    public int SelectedIndex
     {
         get => _selectedIndex;
         set => SetAndRaise(SelectedIndexProperty, ref _selectedIndex, value);
@@ -71,6 +71,8 @@ public class EnumInput : DescribedInput
 
         comboBox.SelectionChanged += (sender, args) => 
         {
+            // Ignore when ItemSource is empty, otherwise null values will be fed to Settings
+            if (ItemsSource == null) return;
             SelectedItem = comboBox.SelectedItem;
             SelectedIndex = comboBox.SelectedIndex;
         };
