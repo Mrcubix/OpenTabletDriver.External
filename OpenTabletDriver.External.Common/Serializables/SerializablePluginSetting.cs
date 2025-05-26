@@ -28,6 +28,13 @@ namespace OpenTabletDriver.External.Common.Serializables
             Value = value == null ? null : JToken.FromObject(value);
         }
 
+        public SerializablePluginSettings(JToken value, int identifier, SerializableProperty property)
+        {
+            Identifier = identifier;
+            Property = property.Name;
+            Value = value;
+        }
+
         public SerializablePluginSettings(SerializableProperty property, SerializablePlugin plugin)
         {
             Identifier = plugin.Identifier;
