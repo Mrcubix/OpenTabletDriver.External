@@ -13,7 +13,6 @@ namespace OpenTabletDriver.External.Common.Serializables
     /// <remarks>
     ///   This is made with bindings in mind.
     /// </remarks>
-    /// TODO: Implement SerializablePluginStore as well as a way to serialize properties and their types.
     public class SerializablePlugin
     {
         public SerializablePlugin()
