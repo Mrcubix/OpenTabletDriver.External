@@ -30,11 +30,11 @@ namespace OpenTabletDriver.External.Common.Serializables
             Value = value == null ? GetDefaultValue(property) : JToken.FromObject(value);
         }
 
-        public SerializablePluginSettings(JToken value, int identifier, SerializableProperty property)
+        public SerializablePluginSettings(SerializableProperty property, int identifier, JToken? value = null)
         {
             Identifier = identifier;
             Property = property.Name;
-            Value = value;
+            Value = value ?? GetDefaultValue(property);
         }
 
         public SerializablePluginSettings(SerializableProperty property, SerializablePlugin plugin, object? value = null)
