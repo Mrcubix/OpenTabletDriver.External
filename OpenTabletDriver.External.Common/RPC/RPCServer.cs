@@ -32,7 +32,7 @@ namespace OpenTabletDriver.External.Common.RPC
 
         public event EventHandler<bool> ConnectionStateChanged;
 
-        public T Instance { protected set; get; }
+        public T Instance { get; protected set; }
         public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
         public bool HasStarted { get; private set; } = false;
 
