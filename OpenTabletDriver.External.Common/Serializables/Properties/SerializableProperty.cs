@@ -16,8 +16,13 @@ namespace OpenTabletDriver.External.Common.Serializables.Properties
             Modifiers = modifiers;
         }
 
+        [JsonProperty]
         public string Name { get; set; } = string.Empty;
+
+        [JsonProperty]
         public JTokenType Type { get; set; }
+
+        [JsonProperty]
         public IEnumerable<SerializableAttributeModifier> Modifiers { get; set; } = [];
     }
 }

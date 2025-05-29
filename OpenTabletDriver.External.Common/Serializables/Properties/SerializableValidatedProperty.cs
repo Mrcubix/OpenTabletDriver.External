@@ -16,6 +16,7 @@ namespace OpenTabletDriver.External.Common.Serializables.Properties
             Values = values;
         }
 
+        [JsonProperty]
         public System.Collections.IList Values { get; set; } = Array.Empty<object>();
     }
 }
