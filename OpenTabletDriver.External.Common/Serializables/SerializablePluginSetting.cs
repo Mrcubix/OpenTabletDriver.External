@@ -1,5 +1,7 @@
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OpenTabletDriver.External.Common.Enums;
 using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Common.Serializables
@@ -21,11 +23,11 @@ namespace OpenTabletDriver.External.Common.Serializables
             Property = property;
         }
 
-        public SerializablePluginSettings(object? value, int identifier, SerializableProperty property)
+        public SerializablePluginSettings(SerializableProperty property, int identifier, object? value = null)
         {
             Identifier = identifier;
             Property = property.Name;
-            Value = value == null ? null : JToken.FromObject(value);
+            Value = value == null ? GetDefaultValue(property) : JToken.FromObject(value);
         }
 
         public SerializablePluginSettings(JToken value, int identifier, SerializableProperty property)
@@ -35,10 +37,11 @@ namespace OpenTabletDriver.External.Common.Serializables
             Value = value;
         }
 
-        public SerializablePluginSettings(SerializableProperty property, SerializablePlugin plugin)
+        public SerializablePluginSettings(SerializableProperty property, SerializablePlugin plugin, object? value = null)
         {
             Identifier = plugin.Identifier;
             Property = property.Name;
+            Value = value == null ? GetDefaultValue(property) : JToken.FromObject(value);
         }
 
         /// <summary>
@@ -61,5 +64,11 @@ namespace OpenTabletDriver.External.Common.Serializables
 
         [JsonIgnore]
         public bool HasValue => Value != null;
+
+        private static JToken? GetDefaultValue(SerializableProperty property)
+        {
+            var defaultValueModifier = property.Modifiers.FirstOrDefault(p => p.Type == AttributeModifierType.DefaultValue);
+            return defaultValueModifier == null || defaultValueModifier.Value == null ? null : JToken.FromObject(defaultValueModifier.Value);
+        }
     }
 }

@@ -36,6 +36,20 @@ public partial class MainViewModel : ObservableObject
         new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
     ];
 
+    private static readonly IEnumerable<SerializableAttributeModifier> _exampleModifiersWithStringDefault =
+    [
+        new SerializableAttributeModifier(AttributeModifierType.Tooltip, "Tooltip Here"),
+        new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
+        new SerializableAttributeModifier(AttributeModifierType.DefaultValue, "Hello"),
+    ];
+
+    private static readonly IEnumerable<SerializableAttributeModifier> _exampleModifiersWithDoubleDefault =
+    [
+        new SerializableAttributeModifier(AttributeModifierType.Tooltip, "Tooltip Here"),
+        new SerializableAttributeModifier(AttributeModifierType.Unit, "ms"),
+        new SerializableAttributeModifier(AttributeModifierType.DefaultValue, 5d),
+    ];
+
     #endregion
 
     #region Properties
@@ -71,13 +85,13 @@ public partial class MainViewModel : ObservableObject
 
     #region Settings
 
-    private static readonly SerializablePluginSettings _ExampleBoolSetting = new(true, 1, _ExampleBoolProperty);
-    private static readonly SerializablePluginSettings _ExampleDoubleSetting = new(0.5d, 1, _ExampleDoubleProperty);
-    private static readonly SerializablePluginSettings _ExampleIntSetting = new(42, 1, _ExampleIntProperty);
-    private static readonly SerializablePluginSettings _ExampleStringSetting = new("Hello World", 1, _ExampleStringProperty);
-    private static readonly SerializablePluginSettings _ExampleValidatedStringSetting = new("Choice 2", 1, _ExampleValidatedStringProperty);
-    private static readonly SerializablePluginSettings _ExampleSliderSetting = new(50d, 1, _ExampleSliderProperty);
-    private static readonly SerializablePluginSettings _ExampleIntegerSliderSetting = new(50, 1, _ExampleIntegerSliderProperty);
+    private static readonly SerializablePluginSettings _ExampleBoolSetting = new(_ExampleBoolProperty, 1, true);
+    private static readonly SerializablePluginSettings _ExampleDoubleSetting = new(_ExampleDoubleProperty, 1, 0.5d);
+    private static readonly SerializablePluginSettings _ExampleIntSetting = new(_ExampleIntProperty, 1, 42);
+    private static readonly SerializablePluginSettings _ExampleStringSetting = new(_ExampleStringProperty, 1, "Hello World");
+    private static readonly SerializablePluginSettings _ExampleValidatedStringSetting = new(_ExampleValidatedStringProperty, 1, "Choice 2");
+    private static readonly SerializablePluginSettings _ExampleSliderSetting = new(_ExampleSliderProperty, 1, 50d);
+    private static readonly SerializablePluginSettings _ExampleIntegerSliderSetting = new(_ExampleIntegerSliderProperty, 1, 50);
 
     private static readonly SerializablePluginSettings[] _ExampleSettings =
     [
@@ -112,8 +126,8 @@ public partial class MainViewModel : ObservableObject
                 Properties = new()
                 {
                     new SerializableValidatedProperty("Validated String", JTokenType.Array, _bindingValues, _exampleModifiers),
-                    new SerializableProperty("Example Double", JTokenType.Float, _exampleModifiers),
-                    new SerializableProperty("Example String", JTokenType.String, _exampleModifiers)
+                    new SerializableProperty("Example Double", JTokenType.Float, _exampleModifiersWithDoubleDefault),
+                    new SerializableProperty("Example String", JTokenType.String, _exampleModifiersWithStringDefault)
                 }
             },
             new SerializablePlugin()
