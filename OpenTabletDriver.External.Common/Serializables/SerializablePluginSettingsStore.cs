@@ -81,6 +81,9 @@ namespace OpenTabletDriver.External.Common.Serializables
         [JsonProperty("Settings")]
         public ObservableCollection<SerializablePluginSettings> Settings { get; set; }
 
+        [JsonProperty("Enable")]
+        public bool Enable { get; set; }
+
         private static ObservableCollection<SerializablePluginSettings> GetSettingsForType(SerializablePlugin plugin)
         {
             var settings = plugin.Properties.Select(property => new SerializablePluginSettings(property, plugin));
