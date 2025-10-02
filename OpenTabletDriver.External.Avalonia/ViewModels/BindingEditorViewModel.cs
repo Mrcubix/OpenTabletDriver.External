@@ -13,6 +13,8 @@ public partial class BindingEditorDialogViewModel : ViewModelBase
 
     public event EventHandler ClearRequested = null!;
 
+    public bool DoConvertKeysToEto { get; init; }
+
     public void Clear()
     {
         Store = null!;

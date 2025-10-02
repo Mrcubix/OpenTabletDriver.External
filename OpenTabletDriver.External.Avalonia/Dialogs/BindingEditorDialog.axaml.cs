@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Input;
+using OpenTabletDriver.External.Avalonia.Extensions;
 using OpenTabletDriver.External.Avalonia.ViewModels;
 using OpenTabletDriver.External.Common.Serializables;
 
@@ -106,7 +107,7 @@ public partial class BindingEditorDialog : Window
                         {
                             Identifier = KeyBindingPlugin?.Identifier ?? -1,
                             Property = "Key",
-                            Value = e.Key.ToString()
+                            Value = vm.DoConvertKeysToEto ? e.Key.ConvertToEtoKeyString() : e.Key.ToString()
                         }
                     ]
                 });
