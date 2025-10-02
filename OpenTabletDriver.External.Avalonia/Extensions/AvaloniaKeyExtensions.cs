@@ -93,7 +93,6 @@ public static class AvaloniaKeyExtensions
         // Keypad equal
         { Key.LWin, "Menu" },
         { Key.OemBackslash, "Backslash" },
-        { Key.OemPlus, "Plus" },
         { Key.OemPlus, "Equals" },
         { Key.OemSemicolon, "Semicolon" },
         { Key.OemQuotes, "Quote" },
