@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/OpenTabletDriver.External.Avalonia.Catalog/bin/Debug/net7.0/OpenTabletDriver.External.Avalonia.Catalog.dll",
+            "program": "${workspaceFolder}/OpenTabletDriver.External.Avalonia.Catalog/bin/Debug/net8.0/OpenTabletDriver.External.Avalonia.Catalog.dll",
             "args": [],
             "cwd": "${workspaceFolder}/OpenTabletDriver.External.Avalonia.Catalog",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

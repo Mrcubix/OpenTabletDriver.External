@@ -18,7 +18,7 @@
     <Grid RowDefinitions="*, Auto" >
         <Border Name="Inputs" Margin="5" Grid.Row="0" Background="{DynamicResource BindingEditorDialogBorderBackgroundBrush}" BorderBrush="{DynamicResource BindingEditorDialogBorderBrush}" 
                 BorderThickness="1" CornerRadius="5" Focusable="true">
-            <TextBlock Text="Press a key or mouse button" TextAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding Store, TargetNullValue='Press a key or mouse button'}" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" />
         </Border>
         <Button Margin="5" Grid.Row="1" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
                 Command="{Binding Clear}" HorizontalAlignment="Stretch" >

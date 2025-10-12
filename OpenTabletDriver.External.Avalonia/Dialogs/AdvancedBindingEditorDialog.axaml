@@ -3,8 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:OpenTabletDriver.External.Avalonia.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
-        MinWidth="350" MinHeight="250" Width="350" Height="250" 
+        xmlns:controls="clr-namespace:OpenTabletDriver.External.Avalonia.Controls"
+        mc:Ignorable="d" d:DesignWidth="386" d:DesignHeight="450"
+        MinWidth="350" MinHeight="250" Width="386" Height="388" 
         x:Class="OpenTabletDriver.External.Avalonia.Dialogs.AdvancedBindingEditorDialog"
         x:DataType="vm:AdvancedBindingEditorDialogViewModel"
         Background="#171C2C"
@@ -16,33 +17,31 @@
         <DynamicResource ResourceKey="BindingEditorDialogBodyBrush" />
     </Window.Background>
         
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">
-        <TextBlock Text="Type" Margin="0, 8" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+    <ScrollViewer>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto" ColumnDefinitions="*, *" Margin="16">
+            <TextBlock Text="Type" Margin="0, 8" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" />
 
-        <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" Name="TypesComboBox" 
-                  Margin="0, 0, 0, 16" Grid.Row="1" Grid.ColumnSpan="2"
-                  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <ComboBox ItemsSource="{Binding BindingTypes}" SelectedItem="{Binding SelectedBindingType}" Name="TypesComboBox"
+                    VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                    Grid.Row="1" Grid.ColumnSpan="2" Margin="0, 0, 0, 16" />
 
-        <TextBlock Text="Property" Margin="0, 8" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+            <TextBlock Text="Properties" IsVisible="{Binding SettingStore.Store, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Margin="0, 8" />
 
-        <ComboBox ItemsSource="{Binding ValidProperties}" SelectedItem="{Binding SelectedProperty}" Name="PropertiesComboBox"
-                  IsVisible="{Binding !!ValidProperties.Count}" Grid.Row="3"  Grid.ColumnSpan="2"
-                  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <controls:PluginSettingStoreEditor DataContext="{Binding SettingStore}" IsVisible="{Binding Store, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                            VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" />
 
-        <TextBox Text="{Binding SelectedProperty}" Name="PropertiesTextBox" Grid.Row="3" Grid.ColumnSpan="2"
-                 IsVisible="{Binding !!!ValidProperties.Count}" 
-                 VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
+                    Command="{Binding Clear}" HorizontalAlignment="Stretch" >
+                <TextBlock Text="Clear" TextAlignment="Center" />
+            </Button>
 
-        <Button Grid.Row="5" Grid.Column="0" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
-                Command="{Binding Clear}" HorizontalAlignment="Stretch" >
-            <TextBlock Text="Clear" TextAlignment="Center" />
-        </Button>
+            <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
+                    Command="{Binding Apply}" HorizontalAlignment="Stretch" >
+                <TextBlock Text="Apply" TextAlignment="Center" />
+            </Button>
 
-        <Button Grid.Row="5" Grid.Column="1" Background="{DynamicResource BindingEditorButtonBrush}" Foreground="{DynamicResource BindingEditorDialogForegroundBrush}"
-                Command="{Binding Apply}" HorizontalAlignment="Stretch" >
-            <TextBlock Text="Apply" TextAlignment="Center" />
-        </Button>
-
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 
 </Window>

@@ -1,4 +1,8 @@
+using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OpenTabletDriver.External.Common.Enums;
+using OpenTabletDriver.External.Common.Serializables.Properties;
 
 namespace OpenTabletDriver.External.Common.Serializables
 {
@@ -19,6 +23,34 @@ namespace OpenTabletDriver.External.Common.Serializables
             Property = property;
         }
 
+        public SerializablePluginSettings(string property, int identifier, JToken? value = null)
+        {
+            Identifier = identifier;
+            Property = property;
+            Value = value;
+        }
+
+        public SerializablePluginSettings(SerializableProperty property, int identifier, object? value = null)
+        {
+            Identifier = identifier;
+            Property = property.Name;
+            Value = value == null ? GetDefaultValue(property) : JToken.FromObject(value);
+        }
+
+        public SerializablePluginSettings(SerializableProperty property, int identifier, JToken? value = null)
+        {
+            Identifier = identifier;
+            Property = property.Name;
+            Value = value ?? GetDefaultValue(property);
+        }
+
+        public SerializablePluginSettings(SerializableProperty property, SerializablePlugin plugin, object? value = null)
+        {
+            Identifier = plugin.Identifier;
+            Property = property.Name;
+            Value = value == null ? GetDefaultValue(property) : JToken.FromObject(value);
+        }
+
         /// <summary>
         ///   The identifier of the plugin.
         /// </summary>
@@ -35,9 +67,15 @@ namespace OpenTabletDriver.External.Common.Serializables
         ///   The value of the property.
         /// </summary>
         [JsonProperty]
-        public string? Value { get; set; }
+        public JToken? Value { get; set; }
 
         [JsonIgnore]
         public bool HasValue => Value != null;
+
+        private static JToken? GetDefaultValue(SerializableProperty property)
+        {
+            var defaultValueModifier = property.Modifiers.FirstOrDefault(p => p.Type == AttributeModifierType.DefaultValue);
+            return defaultValueModifier == null || defaultValueModifier.Value == null ? null : JToken.FromObject(defaultValueModifier.Value);
+        }
     }
 }

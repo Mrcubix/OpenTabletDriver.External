@@ -6,17 +6,18 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 #nullable enable
 
-public partial class BindingEditorDialogViewModel : ViewModelBase
+public partial class BindingEditorDialogViewModel(bool doConvertKeysToEto = false) : ViewModelBase
 {
     [ObservableProperty]
-    private SerializablePluginSettings? _property = null!;
+    private SerializablePluginSettingsStore? _store = null!;
 
-    public event EventHandler CloseRequested = null!;
+    public event EventHandler ClearRequested = null!;
+
+    public bool DoConvertKeysToEto { get; } = doConvertKeysToEto;
 
     public void Clear()
     {
-        Property = null!;
-
-        CloseRequested?.Invoke(this, null!);
+        Store = null!;
+        ClearRequested?.Invoke(this, null!);
     }
 }

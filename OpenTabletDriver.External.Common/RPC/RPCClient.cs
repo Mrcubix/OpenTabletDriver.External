@@ -47,7 +47,7 @@ namespace OpenTabletDriver.External.Common.RPC
         public event EventHandler Attached;
         public event EventHandler Connecting;
 
-        public T Instance { private set; get; }
+        public T Instance { get; private set; }
         public List<JsonConverter> Converters { get; } = new List<JsonConverter>();
         public bool IsConnected { get; private set; } = false;
         public bool IsConnecting { get; private set; } = false;

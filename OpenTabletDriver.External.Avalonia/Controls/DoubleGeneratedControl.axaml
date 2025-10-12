@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="using:OpenTabletDriver.External.Avalonia.Converters"
+             xmlns:datatemplates="using:OpenTabletDriver.External.Avalonia.DataTemplates"
+             xmlns:tcontrols="using:OpenTabletDriver.External.Avalonia.TemplatedControls"
+             xmlns:interfaces="using:OpenTabletDriver.External.Avalonia.Interfaces"
+             xmlns:model="using:OpenTabletDriver.External.Avalonia.Models"
+             xmlns:enums="using:OpenTabletDriver.External.Common.Enums"
+             xmlns:newtonsoft="using:Newtonsoft.Json.Linq"
+             xmlns:sys="using:System"
+             mc:Ignorable="d" d:DesignWidth="660" d:DesignHeight="100"
+             x:Class="OpenTabletDriver.External.Avalonia.Controls.DoubleGeneratedControl"
+             x:DataType="model:PropertySettingPair"
+             x:CompileBindings="true">
+
+    <UserControl.DataTemplates>
+        <datatemplates:DoublePropertyDataTemplate>
+            <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:True}" >
+                <tcontrols:RangedInput />
+            </DataTemplate>
+            <DataTemplate DataType="model:PropertySettingPair" x:Key="{x:False}" >
+                <tcontrols:DoubleInput />
+            </DataTemplate>
+        </datatemplates:DoublePropertyDataTemplate>
+    </UserControl.DataTemplates>
+
+    <UserControl.Resources>
+        <converters:SliderPropertyConverter x:Key="SliderPropertyConverter" />
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="tcontrols|RangedInput">
+            <Setter Property="Minimum">
+                <Setter.Value>
+                    <Binding Path="Property"
+                             Converter="{StaticResource SliderPropertyConverter}"
+                             ConverterParameter="{x:Static enums:AttributeModifierType.Minimum}" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Maximum">
+                <Setter.Value>
+                    <Binding Path="Property"
+                             Converter="{StaticResource SliderPropertyConverter}"
+                             ConverterParameter="{x:Static enums:AttributeModifierType.Maximum}" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <ContentControl Name="PART_Content" Content="{Binding}" />
+    </Grid>
+
+</UserControl>

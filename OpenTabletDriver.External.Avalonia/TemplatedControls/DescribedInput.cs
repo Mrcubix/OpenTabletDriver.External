@@ -26,6 +26,9 @@ public abstract class DescribedInput : TemplatedControl
     public static readonly StyledProperty<int> TimeToShowDescInMsProperty =
         AvaloniaProperty.Register<DescribedInput, int>(nameof(TimeToShowDescInMs), 400);
 
+    public static readonly StyledProperty<bool> IsReadOnlyProperty =
+        AvaloniaProperty.Register<DescribedInput, bool>(nameof(IsReadOnly), false);
+
     public string? Label
     {
         get => GetValue(LabelProperty);
@@ -42,6 +45,12 @@ public abstract class DescribedInput : TemplatedControl
     {
         get => GetValue(TimeToShowDescInMsProperty);
         set => SetValue(TimeToShowDescInMsProperty, value);
+    }
+
+    public bool IsReadOnly
+    {
+        get => GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
     }
 
     static DescribedInput()

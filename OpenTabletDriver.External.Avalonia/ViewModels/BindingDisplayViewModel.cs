@@ -6,34 +6,42 @@ namespace OpenTabletDriver.External.Avalonia.ViewModels;
 
 #nullable enable
 
-public partial class BindingDisplayViewModel : ViewModelBase
+public partial class BindingDisplayViewModel : ViewModelBase, IDisposable
 {
+    /// <summary>
+    ///   The description of the binding. <br>
+    ///   This is the text on the left column.
+    /// </summary>
     [ObservableProperty]
     private string? _description;
 
+    /// <summary>
+    ///   The content of the binding. <br>
+    ///   This is the text contained in the button leading to the binding editor dialog.
+    /// </summary>
     [ObservableProperty]
     private string? _content;
 
     [ObservableProperty]
-    private SerializablePluginSettings? _pluginProperty;
+    private SerializablePluginSettingsStore? _store;
 
     public BindingDisplayViewModel()
     {
         Description = "PlaceHolder";
         Content = "";
-        PluginProperty = null;
+        Store = null;
     }
 
-    public BindingDisplayViewModel(SerializablePluginSettings? pluginProperty)
+    public BindingDisplayViewModel(SerializablePluginSettingsStore store)
     {
-        PluginProperty = pluginProperty;
+        Store = store;
     }
 
-    public BindingDisplayViewModel(string description, string content, SerializablePluginSettings? pluginProperty)
+    public BindingDisplayViewModel(string description, string content, SerializablePluginSettingsStore store)
     {
         Description = description;
         Content = content;
-        PluginProperty = pluginProperty;
+        Store = store;
     }
 
     public event EventHandler<BindingDisplayViewModel>? ShowBindingEditorDialogRequested;
@@ -47,5 +55,10 @@ public partial class BindingDisplayViewModel : ViewModelBase
     public void ShowAdvancedBindingEditorDialog()
     {
         ShowAdvancedBindingEditorDialogRequested?.Invoke(this, this);
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
     }
 }
